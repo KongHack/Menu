@@ -43,7 +43,7 @@ class Menu
 		$out = '';
 		foreach($this->panels as $panel)
 		{
-			$out .= '<div class="row '.$this->getPanelClass().'" id="'.$panel['id'].'" '.($panel['id']==$this->default?'':'style="display:none"').'>';
+			$out .= '<div class="row '.$this->getPanelClass().'" id="MENU_'.$panel['id'].'" '.($panel['id']==$this->default?'':'style="display:none"').'>';
 			$out .= $panel['obj']->returnPanel();
 			$out .= '</div>';
 		}
