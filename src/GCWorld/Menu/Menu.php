@@ -59,7 +59,7 @@ class Menu
 	{
 		$this->menu_elements[($right?'R':'L')][$id] = array(
 			'type'  => 'H',
-			'title' => $html,
+			'html' => $html,
 			'right' => $right
 		);
 	}
