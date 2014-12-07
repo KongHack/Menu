@@ -57,6 +57,6 @@ class DropDownWide
 
 	public function getPanelClass()
 	{
-		return 'MENU_PANEL_CLASS_'.$this->id;
+		return 'WIDE_PANEL_CLASS_'.$this->id;
 	}
 }

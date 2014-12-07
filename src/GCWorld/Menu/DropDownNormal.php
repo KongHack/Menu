@@ -43,7 +43,7 @@ class DropDownNormal
 		$out = '';
 		foreach($this->panels as $panel)
 		{
-			$out .= '<div class="row '.$this->getPanelClass().'" id="MENU_'.$panel['id'].'" '.($panel['id']==$this->default?'':'style="display:none"').'>';
+			$out .= '<div class="row '.$this->getPanelClass().'">';
 			$out .= $panel['obj']->returnPanel();
 			$out .= '</div>';
 		}
@@ -57,6 +57,6 @@ class DropDownNormal
 
 	public function getPanelClass()
 	{
-		return 'MENU_PANEL_CLASS_'.$this->id;
+		return 'NORMAL_PANEL_CLASS_'.$this->id;
 	}
 }

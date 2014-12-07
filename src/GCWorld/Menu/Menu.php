@@ -95,61 +95,19 @@ class Menu
 					</div>
 				</form>
 				';
-		//Cycle elements
-		if(isset($this->menu_elements['L']))
-		{
-			$out .= '<ul class="nav navbar-nav">';
-			foreach($this->menu_elements['L'] as $element)
-			{
-				switch($element['type'])
-				{
-					case 'L':
-						$out .= '<li><a href="'.$element['url'].'"></a>'.$element['title'].'</li>';
-						break;
-					case 'D':
-						$out .= '
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li>
-									<div class="yamm-content">
-										<div class="row">
-											<div class="col-sm-12">
-												'.$element['obj']->returnPanels().'
-											</div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</li>
-						';
-						break;
-					case 'W':
-						$out .= '
-						<li class="dropdown yamm-fw">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li>
-									<div class="yamm-content">
-										'.$element['obj']->returnPanels().'
-									</div>
-								</li>
-							</ul>
-						</li>
-						';
-						break;
-					case 'H':
-						$out .= $element['html'];
-						break;
-				}
-			}
-			$out .= '</ul>';
-		}
 
-		if(isset($this->menu_elements['R']))
+		foreach($this->menu_elements as $alignment => $elements)
 		{
-			$out .= '<ul class="nav navbar-nav navbar-right">';
-			foreach($this->menu_elements['R'] as $element)
+			if($alignment == 'L')
+			{
+				$out .= '<ul class="nav navbar-nav">';
+			}
+			else
+			{
+				$out .= '<ul class="nav navbar-nav navbar-right">';
+			}
+
+			foreach($elements as $element_id => $element)
 			{
 				switch($element['type'])
 				{
