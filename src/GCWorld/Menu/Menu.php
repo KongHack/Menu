@@ -146,15 +146,15 @@ class Menu
 			$out .= '</ul>';
 		}
 
-		if(isset($this->menu_elements['L']))
+		if(isset($this->menu_elements['R']))
 		{
 			$out .= '<ul class="nav navbar-nav navbar-right">';
-			foreach($this->menu_elements['L'] as $element)
+			foreach($this->menu_elements['R'] as $element)
 			{
 				switch($element['type'])
 				{
 					case 'L':
-						$out .= '<li><a href="'.$element['url'].'"></a>'.$element['title'].'</li>';
+						$out .= '<li><a href="'.$element['url'].'">'.$element['title'].'</a></li>';
 						break;
 					case 'D':
 						$out .= '
