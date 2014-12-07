@@ -27,7 +27,7 @@ class Menu
 		$this->menu_elements[($right?'R':'L')][$id] = array('type'=>'L', 'title'=>$title, 'url'=>$url, 'new_win' => $new_win);
 	}
 
-	/*
+	/**
 	 * @return \GCWorld\Menu\DropDownNormal
 	 */
 	public function addDropDown($id, $title, $right = false)
@@ -41,7 +41,7 @@ class Menu
 		return $this->menu_elements[($right?'R':'L')][$id]['obj'];
 	}
 
-	/*
+	/**
 	 * @return \GCWorld\Menu\DropDownWide
 	 */
 	public function addDropDownWide($id, $title, $right = false)
@@ -64,7 +64,7 @@ class Menu
 		);
 	}
 
-	/*
+	/**
 	 * @return string
 	 */
 	public function returnMenu()
