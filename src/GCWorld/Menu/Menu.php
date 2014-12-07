@@ -38,7 +38,7 @@ class Menu
 			'right' => $right,
 			'obj'   => new DropDownNormal($id)
 		);
-		return $this->menu_elements[$id]['obj'];
+		return $this->menu_elements[($right?'R':'L')][$id]['obj'];
 	}
 
 	/*
@@ -52,7 +52,7 @@ class Menu
 			'right' => $right,
 			'obj'   => new DropDownWide($id)
 		);
-		return $this->menu_elements[$id]['obj'];
+		return $this->menu_elements[($right?'R':'L')][$id]['obj'];
 	}
 
 	public function addHTML($id, $html, $right = false)
