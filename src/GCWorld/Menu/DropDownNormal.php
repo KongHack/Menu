@@ -28,7 +28,6 @@ class DropDownNormal
 		return $this->panels[$id]['obj'];
 	}
 
-
 	/**
 	 * @param $id
 	 * @return \GCWorld\Menu\MenuPanel

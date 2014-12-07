@@ -1,7 +1,7 @@
 <?php
 namespace GCWorld\Menu;
 
-class MenuLink
+class PanelElements_Link
 {
 	private $url            = '#';
 	private $name           = '';
