@@ -56,7 +56,7 @@ class MenuPanel
 	}
 
 	/**
-	 * @return \GCWorld\Menu\Menu
+	 * @return \GCWorld\Menu\DropDownWide
 	 */
 	public function getParent()
 	{

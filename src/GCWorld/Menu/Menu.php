@@ -3,60 +3,196 @@ namespace GCWorld\Menu;
 
 class Menu
 {
-	private $panels     = array();
-	public  $id         = null;
-	public  $default    = null;
+	private $menu_elements  = array();
+	private $menu_title     = '';
+	private $menu_logo      = '';
+	private $menu_url       = '';
 
-	public function __construct($id)
+	public function setTitle($title)
 	{
-		$this->id = $id;
+		$this->menu_title = $title;
+	}
+	public function setLogo($logo)
+	{
+		$this->menu_logo = $logo;
+	}
+	public function setURL($url)
+	{
+		$this->menu_url = $url;
 	}
 
 
-	/**
-	 * @param $id
-	 * @param $name
-	 * @return \GCWorld\Menu\MenuPanel
-	 */
-	public function addPanel($id, $name)
+	public function addLink($id, $title, $url, $right = false)
 	{
-		$this->panels[$id] = array(
-			'id'    => $id,
-			'name'  => $name,
-			'obj'   => new MenuPanel($this)
+		$this->menu_elements[($right?'R':'L')][$id] = array('type'=>'L', 'title'=>$title, 'url'=>$url);
+	}
+
+	public function addDropDown($id, $title, $right = false)
+	{
+		$this->menu_elements[($right?'R':'L')][$id] = array(
+			'type'  => 'D',
+			'title' => $title,
+			'right' => $right,
+			'obj'   => new DropDownNormal($id)
 		);
-		return $this->panels[$id]['obj'];
+		return $this->menu_elements[$id]['obj'];
 	}
 
-
-	/**
-	 * @param $id
-	 * @return \GCWorld\Menu\MenuPanel
-	 */
-	public function getPanel($id)
+	public function addDropDownWide($id, $title, $right = false)
 	{
-		return $this->panels[$id]['obj'];
+		$this->menu_elements[($right?'R':'L')][$id] = array(
+			'type'  => 'W',
+			'title' => $title,
+			'right' => $right,
+			'obj'   => new DropDownWide($id)
+		);
+		return $this->menu_elements[$id]['obj'];
 	}
 
-	public function returnPanels()
+	public function addHTML($id, $html, $right = false)
 	{
-		$out = '';
-		foreach($this->panels as $panel)
+		$this->menu_elements[($right?'R':'L')][$id] = array(
+			'type'  => 'H',
+			'title' => $html,
+			'right' => $right
+		);
+	}
+
+	public function returnMenu()
+	{
+		$out = '
+		<nav class="navbar yamm navbar-default" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="'.$this->menu_url.'"><img src="'.$this->menu_logo.'" alt="'.$this->menu_title.'"></a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<form class="navbar-form navbar-left" role="search" action="/search_results.php" id="cse-search-box">
+					<div class="form-group">
+						<input type="hidden" name="cof" value="FORID:10">
+						<input type="hidden" name="ie" value="UTF-8">
+						<input type="hidden" name="sa" value="Search">
+						<div class="input-group" style="width:150px;">
+							<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="form-control ui-autocomplete-input" placeholder="Search" name="q" id="header_search" autocomplete="off">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+							</div>
+						</div>
+					</div>
+				</form>
+				';
+		//Cycle elements
+		if(isset($this->menu_elements['L']))
 		{
-			$out .= '<div class="row '.$this->getPanelClass().'" id="MENU_'.$panel['id'].'" '.($panel['id']==$this->default?'':'style="display:none"').'>';
-			$out .= $panel['obj']->returnPanel();
-			$out .= '</div>';
+			$out .= '<ul class="nav navbar-nav">';
+			foreach($this->menu_elements['L'] as $element)
+			{
+				switch($element['type'])
+				{
+					case 'L':
+						$out .= '<li><a href="'.$element['url'].'"></a>'.$element['title'].'</li>';
+						break;
+					case 'D':
+						$out .= '
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>
+									<div class="yamm-content">
+										<div class="row">
+											<div class="col-sm-12">
+												'.$element['obj']->returnPanels().'
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+						';
+						break;
+					case 'W':
+						$out .= '
+						<li class="dropdown yamm-fw">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>
+									<div class="yamm-content">
+										'.$element['obj']->returnPanels().'
+									</div>
+								</li>
+							</ul>
+						</li>
+						';
+						break;
+					case 'H':
+						$out .= $element['html'];
+						break;
+				}
+			}
+			$out .= '</ul>';
 		}
-		return $out;
-	}
 
-	public function setDefault($id)
-	{
-		$this->default = $id;
-	}
+		if(isset($this->menu_elements['L']))
+		{
+			$out .= '<ul class="nav navbar-nav navbar-right">';
+			foreach($this->menu_elements['L'] as $element)
+			{
+				switch($element['type'])
+				{
+					case 'L':
+						$out .= '<li><a href="'.$element['url'].'"></a>'.$element['title'].'</li>';
+						break;
+					case 'D':
+						$out .= '
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>
+									<div class="yamm-content">
+										<div class="row">
+											<div class="col-sm-12">
+												'.$element['obj']->returnPanels().'
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+						';
+						break;
+					case 'W':
+						$out .= '
+						<li class="dropdown yamm-fw">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>
+									<div class="yamm-content">
+										'.$element['obj']->returnPanels().'
+									</div>
+								</li>
+							</ul>
+						</li>
+						';
+						break;
+					case 'H':
+						$out .= $element['html'];
+						break;
+				}
+			}
+			$out .= '</ul>';
+		}
 
-	public function getPanelClass()
-	{
-		return 'MENU_PANEL_CLASS_'.$this->id;
+
+
+
+
+		$out .= '
+			</div>
+		</nav>';
 	}
 }
