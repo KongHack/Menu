@@ -55,8 +55,8 @@ class MenuPanel
 			{
 				$out .= '</div>';
 				$out .= '</div>';
-				$out .= '</div>';
 			}
+			$out .= '</div>';
 		}
 		return $out;
 	}
