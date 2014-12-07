@@ -24,7 +24,7 @@ class Menu
 
 	public function addLink($id, $title, $url, $new_win = false, $right = false)
 	{
-		$this->menu_elements[($right?'R':'L')][$id] = array('type'=>'L', 'title'=>$title, 'url'=>$url, 'new_win' = $new_win);
+		$this->menu_elements[($right?'R':'L')][$id] = array('type'=>'L', 'title'=>$title, 'url'=>$url, 'new_win' => $new_win);
 	}
 
 	/*
