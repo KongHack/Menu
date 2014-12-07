@@ -44,14 +44,14 @@ class MenuPanel
 		foreach($this->blocks as $block)
 		{
 			$out .= '<div class="col-sm-'.floor(12/count($this->blocks)).'">';
-			if(!$slim)
+			if(!$slim && $block['name'] != 'Spacer')
 			{
 				$out .= '<div class="panel panel-sitespecific">';
 				$out .= '<div class="panel-heading"><div class="panel-title">'.$block['name'].'</div></div>';
 				$out .= '<div class="panel-body">';
 			}
 			$out .= $block['obj']->returnBlock();
-			if(!$slim)
+			if(!$slim && $block['name'] != 'Spacer')
 			{
 				$out .= '</div>';
 				$out .= '</div>';
