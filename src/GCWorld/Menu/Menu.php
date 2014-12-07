@@ -27,6 +27,9 @@ class Menu
 		$this->menu_elements[($right?'R':'L')][$id] = array('type'=>'L', 'title'=>$title, 'url'=>$url);
 	}
 
+	/*
+	 * @return GCWorld\Menu\DropDownNormal
+	 */
 	public function addDropDown($id, $title, $right = false)
 	{
 		$this->menu_elements[($right?'R':'L')][$id] = array(
@@ -38,6 +41,9 @@ class Menu
 		return $this->menu_elements[$id]['obj'];
 	}
 
+	/*
+	 * @return GCWorld\Menu\DropDownWide
+	 */
 	public function addDropDownWide($id, $title, $right = false)
 	{
 		$this->menu_elements[($right?'R':'L')][$id] = array(
@@ -58,6 +64,9 @@ class Menu
 		);
 	}
 
+	/*
+	 * @return string
+	 */
 	public function returnMenu()
 	{
 		$out = '
@@ -187,12 +196,10 @@ class Menu
 			$out .= '</ul>';
 		}
 
-
-
-
-
 		$out .= '
 			</div>
 		</nav>';
+
+		return $out;
 	}
 }
