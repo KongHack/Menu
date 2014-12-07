@@ -22,9 +22,9 @@ class Menu
 	}
 
 
-	public function addLink($id, $title, $url, $right = false)
+	public function addLink($id, $title, $url, $new_win = false, $right = false)
 	{
-		$this->menu_elements[($right?'R':'L')][$id] = array('type'=>'L', 'title'=>$title, 'url'=>$url);
+		$this->menu_elements[($right?'R':'L')][$id] = array('type'=>'L', 'title'=>$title, 'url'=>$url, 'new_win' = $new_win);
 	}
 
 	/*
@@ -112,7 +112,7 @@ class Menu
 				switch($element['type'])
 				{
 					case 'L':
-						$out .= '<li><a href="'.$element['url'].'">'.$element['title'].'</a></li>';
+						$out .= '<li><a href="'.$element['url'].'" '.($new_win?' class="no-ajaxy" target="_blank"':'').'>'.$element['title'].'</a></li>';
 						break;
 					case 'D':
 						$out .= '
