@@ -112,7 +112,7 @@ class Menu
 				switch($element['type'])
 				{
 					case 'L':
-						$out .= '<li><a href="'.$element['url'].'" '.($new_win?' class="no-ajaxy" target="_blank"':'').'>'.$element['title'].'</a></li>';
+						$out .= '<li><a href="'.$element['url'].'" '.($element['new_win']?' class="no-ajaxy" target="_blank"':'').'>'.$element['title'].'</a></li>';
 						break;
 					case 'D':
 						$out .= '
