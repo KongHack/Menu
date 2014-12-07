@@ -17,37 +17,69 @@ class MenuLink
 		$this->parent = $parent;
 	}
 
+	/**
+	 * @param $url
+	 * @return $this
+	 */
 	public function setUrl($url)
 	{
 		$this->url = $url;
+		return $this;
 	}
 
+	/**
+	 * @param $name
+	 * @return $this
+	 */
 	public function setName($name)
 	{
 		$this->name = $name;
+		return $this;
 	}
 
+	/**
+	 * @param $class
+	 * @return $this
+	 */
 	public function setClass($class)
 	{
 		$this->class = $class;
+		return $this;
 	}
 
+	/**
+	 * @param $click
+	 * @return $this
+	 */
 	public function setClick($click)
 	{
 		$this->click = $click;
+		return $this;
 	}
 
+	/**
+	 * @param $loader
+	 * @return $this
+	 */
 	public function setLoader($loader)
 	{
 		$this->panel_loader = $loader;
+		return $this;
 	}
 
+	/**
+	 * @return $this
+	 */
 	public function setNewWindow()
 	{
 		$this->new_win = true;
 		$this->ajaxy = false;
+		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function returnButton()
 	{
 		$out = '<p>';
@@ -76,7 +108,7 @@ class MenuLink
 		return $out;
 	}
 
-	/*
+	/**
 	 * @return \GCWorld\Menu\MenuBlock
 	 */
 	public function getParent()

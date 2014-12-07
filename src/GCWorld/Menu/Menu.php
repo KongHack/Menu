@@ -28,7 +28,7 @@ class Menu
 	}
 
 	/*
-	 * @return GCWorld\Menu\DropDownNormal
+	 * @return \GCWorld\Menu\DropDownNormal
 	 */
 	public function addDropDown($id, $title, $right = false)
 	{
@@ -42,7 +42,7 @@ class Menu
 	}
 
 	/*
-	 * @return GCWorld\Menu\DropDownWide
+	 * @return \GCWorld\Menu\DropDownWide
 	 */
 	public function addDropDownWide($id, $title, $right = false)
 	{
