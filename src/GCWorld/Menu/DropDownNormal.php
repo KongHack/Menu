@@ -43,7 +43,7 @@ class DropDownNormal
 		foreach($this->panels as $panel)
 		{
 			$out .= '<div class="row '.$this->getPanelClass().'">';
-			$out .= $panel['obj']->returnPanel();
+			$out .= $panel['obj']->returnPanel(true);
 			$out .= '</div>';
 		}
 		return $out;

@@ -38,19 +38,25 @@ class MenuPanel
 	/**
 	 * @return string
 	 */
-	public function returnPanel()
+	public function returnPanel($slim = false)
 	{
 		$out = '';
 		foreach($this->blocks as $block)
 		{
 			$out .= '<div class="col-sm-'.floor(12/count($this->blocks)).'">';
-			$out .= '<div class="panel panel-sitespecific">';
-			$out .= '<div class="panel-heading"><div class="panel-title">'.$block['name'].'</div></div>';
-			$out .= '<div class="panel-body">';
+			if(!$slim)
+			{
+				$out .= '<div class="panel panel-sitespecific">';
+				$out .= '<div class="panel-heading"><div class="panel-title">'.$block['name'].'</div></div>';
+				$out .= '<div class="panel-body">';
+			}
 			$out .= $block['obj']->returnBlock();
-			$out .= '</div>';
-			$out .= '</div>';
-			$out .= '</div>';
+			if(!$slim)
+			{
+				$out .= '</div>';
+				$out .= '</div>';
+				$out .= '</div>';
+			}
 		}
 		return $out;
 	}
