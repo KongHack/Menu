@@ -42,6 +42,12 @@ class MenuLink
 		$this->panel_loader = $loader;
 	}
 
+	public function setNewWindow()
+	{
+		$this->new_win = true;
+		$this->ajaxy = false;
+	}
+
 	public function returnButton()
 	{
 		$out = '<p>';
