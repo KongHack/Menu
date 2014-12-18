@@ -99,7 +99,7 @@ class PanelElements_Link
 		{
 			$panelClass = $this->getParent()->getParent()->getParent()->getPanelClass();
 
-			$out .= '<a href="#" class="btn btn-'.$this->class.' btn-block no-ajaxy" onclick="';
+			$out .= '<a class="btn btn-'.$this->class.' btn-block no-ajaxy" onclick="';
 			$out .= '$(\'.'.$panelClass.':not(#MENU_'.$this->panel_loader.')\').fadeOut(\'fast\', function(){$(\'#MENU_'.$this->panel_loader.'\').fadeIn(\'fast\');}); return false;';
 			$out .= '"';
 		}
