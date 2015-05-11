@@ -26,6 +26,7 @@ class PanelElements_LoginForm
 	public function setLoginURL($url)
 	{
 		$this->loginUrl = $url;
+		return $this;
 	}
 
 	/**
@@ -34,6 +35,7 @@ class PanelElements_LoginForm
 	public function setForgotURL($url)
 	{
 		$this->forgotUrl = $url;
+		return $this;
 	}
 
 
