@@ -5,9 +5,35 @@ class PanelElements_LoginForm
 {
 	private $parent         = null;
 
+	/**
+	 * todo: set this to null.  currently set to facilitate legacy code.
+	 * @var string
+	 */
+	protected $loginUrl     = '/login_resp.php';
+	protected $forgotUrl    = '/lostpass.php';
+
+	/**
+	 * @param $parent
+	 */
 	public function __construct($parent)
 	{
 		$this->parent = $parent;
+	}
+
+	/**
+	 * @param $url
+	 */
+	public function setLoginURL($url)
+	{
+		$this->loginUrl = $url;
+	}
+
+	/**
+	 * @param $url
+	 */
+	public function setForgotURL($url)
+	{
+		$this->forgotUrl = $url;
 	}
 
 
@@ -17,7 +43,7 @@ class PanelElements_LoginForm
 	public function returnButton()
 	{
 		return '
-			<form class="form-horizontal" method="post" action="/login_resp.php">
+			<form class="form-horizontal" method="post" action="'.$this->loginUrl.'">
 				<fieldset>
 					<legend>Login</legend>
 					<div class="input-group">
@@ -32,7 +58,7 @@ class PanelElements_LoginForm
 						<label class="control-label" for="button1id"></label>
 						<div class="controls">
 							<input type="submit" class="btn btn-success" value="Login">
-							<a class="btn btn-danger" href="/lostpass.php">Forgot Password?</a>
+							<a class="btn btn-danger" href="'.$this->forgotUrl.'">Forgot Password?</a>
 						</div>
 					</div>
 				</fieldset>
