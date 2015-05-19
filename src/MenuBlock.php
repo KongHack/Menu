@@ -13,21 +13,21 @@ class MenuBlock
 
 	/**
 	 * @param $id
-	 * @return \GCWorld\Menu\PanelElements_Link
+	 * @return \GCWorld\Menu\PanelElements\Link
 	 */
 	public function addLink($id)
 	{
-		$this->links[$id] = new PanelElements_Link($this);
+		$this->links[$id] = new PanelElements\Link($this);
 		return $this->links[$id];
 	}
 
 	/**
 	 * @param $id
-	 * @return \GCWorld\Menu\PanelElements_LoginForm
+	 * @return \GCWorld\Menu\PanelElements\LoginForm
 	 */
 	public function addLoginForm($id)
 	{
-		$this->links[$id] = new PanelElements_LoginForm($this);
+		$this->links[$id] = new PanelElements\LoginForm($this);
 		return $this->links[$id];
 	}
 

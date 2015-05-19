@@ -1,7 +1,7 @@
 <?php
-namespace GCWorld\Menu;
+namespace GCWorld\Menu\PanelElements;
 
-class PanelElements_LoginForm
+class LoginForm
 {
 	private $parent         = null;
 
