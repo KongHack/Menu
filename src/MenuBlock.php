@@ -3,12 +3,12 @@ namespace GCWorld\Menu;
 
 class MenuBlock
 {
-    private $links  = array();
-    private $parent = null;
-    private $html   = null;
-    public $wrap    = true;
+	public $wrap    = true;
+	private $parent = null;
+	private $html   = null;
+	private $links  = array();
 
-    public function __construct($parent)
+	public function __construct($parent)
     {
         $this->parent = $parent;
     }

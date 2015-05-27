@@ -51,7 +51,7 @@ class MenuPanel
                 $out .= '<div class="panel-heading"><div class="panel-title">'.$block['name'].'</div></div>';
                 $out .= '<div class="panel-body">';
             }
-            $out .= $block['obj']->returnBlock();
+            $out .= $obj->returnBlock();
             if (!$slim && $block['name'] != 'Spacer' && $obj->wrap) {
                 $out .= '</div>';
                 $out .= '</div>';
