@@ -8,23 +8,63 @@ class Menu
     private $menu_logo      = '';
     private $menu_url       = '';
 
+    public $legacySearch    = false;
+
+    public $googleSearchURL = null;
+    public $searchForm      = null;
+
+    /**
+     * @param $title
+     * @return $this
+     */
     public function setTitle($title)
     {
         $this->menu_title = $title;
+        return $this;
     }
+
+    /**
+     * @param $logo
+     * @return $this
+     */
     public function setLogo($logo)
     {
         $this->menu_logo = $logo;
+        return $this;
     }
+
+    /**
+     * Sets the base url that the logo will act upon
+     * @param $url
+     * @return $this
+     */
     public function setURL($url)
     {
         $this->menu_url = $url;
+        return $this;
     }
 
+    /**
+     * @return $this
+     */
+    public function enableLegacySearch()
+    {
+        $this->legacySearch = true;
+        return $this;
+    }
 
+    /**
+     * @param            $id
+     * @param            $title
+     * @param            $url
+     * @param bool|false $new_win
+     * @param bool|false $right
+     * @return $this
+     */
     public function addLink($id, $title, $url, $new_win = false, $right = false)
     {
         $this->menu_elements[($right?'R':'L')][$id] = array('type'=>'L', 'title'=>$title, 'url'=>$url, 'new_win' => $new_win);
+        return $this;
     }
 
     /**
@@ -81,20 +121,42 @@ class Menu
 				<a class="navbar-brand" href="'.$this->menu_url.'"><img src="'.$this->menu_logo.'" alt="'.$this->menu_title.'"></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form class="navbar-form navbar-left" role="search" action="/search_results.php" id="cse-search-box">
-                    <div class="form-group">
-                        <input type="hidden" name="cof" value="FORID:10">
-                        <input type="hidden" name="ie" value="UTF-8">
-                        <input type="hidden" name="sa" value="Search">
-                        <div class="input-group" style="width:150px;">
-                            <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="form-control ui-autocomplete-input" placeholder="Search" name="q" id="header_search" autocomplete="off">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                            </div>
+				';
+        if($this->legacySearch == true) {
+            $out .= '
+            <form class="navbar-form navbar-left" role="search" action="/search_results.php" id="cse-search-box">
+                <div class="form-group">
+                    <input type="hidden" name="cof" value="FORID:10">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <input type="hidden" name="sa" value="Search">
+                    <div class="input-group" style="width:150px;">
+                        <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="form-control ui-autocomplete-input" placeholder="Search" name="q" id="header_search" autocomplete="off">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                         </div>
                     </div>
-                </form>
-				';
+                </div>
+            </form>
+            ';
+        } elseif($this->googleSearchURL != null) {
+            $out .= '
+            <form class="navbar-form navbar-left" role="search" action="'.$this->googleSearchURL.'" id="cse-search-box">
+                <div class="form-group">
+                    <input type="hidden" name="cof" value="FORID:10">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <input type="hidden" name="sa" value="Search">
+                    <div class="input-group" style="width:150px;">
+                        <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="form-control ui-autocomplete-input" placeholder="Search" name="q" id="header_search" autocomplete="off">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            ';
+        } elseif ($this->searchForm != null) {
+            $out .= $this->searchForm;
+        }
 
         foreach ($this->menu_elements as $alignment => $elements) {
             if ($alignment == 'L') {
