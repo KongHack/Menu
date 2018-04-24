@@ -1,17 +1,25 @@
 <?php
 namespace GCWorld\Menu;
 
+/**
+ * Class DropDownWide
+ * @package GCWorld\Menu
+ */
 class DropDownWide
 {
-    private $panels     = array();
-    public $id         = null;
-    public $default    = null;
+    protected $panels     = [];
+    protected $html       = null;
+    public    $id         = null;
+    public    $default    = null;
 
-    public function __construct($id)
+    /**
+     * DropDownWide constructor.
+     * @param string $id
+     */
+    public function __construct(string $id)
     {
         $this->id = $id;
     }
-
 
     /**
      * @param $id
@@ -20,11 +28,11 @@ class DropDownWide
      */
     public function addPanel($id, $name)
     {
-        $this->panels[$id] = array(
+        $this->panels[$id] = [
             'id'    => $id,
             'name'  => $name,
             'obj'   => new MenuPanel($this)
-        );
+        ];
         return $this->panels[$id]['obj'];
     }
 
@@ -38,24 +46,52 @@ class DropDownWide
         return $this->panels[$id]['obj'];
     }
 
+    /**
+     * @return string
+     */
     public function returnPanels()
     {
         $out = '';
+
+        if($this->html !== null) {
+            $out .= '<div class="row '.$this->getPanelClass().'" id="MENU_'.$this->id.'">';
+            $out .= $this->html;
+            $out .= '</div>';
+            return $out;
+        }
+
         foreach ($this->panels as $panel) {
             $out .= '<div class="row '.$this->getPanelClass().'" id="MENU_'.$panel['id'].'" '.($panel['id']==$this->default?'':'style="display:none"').'>';
             $out .= $panel['obj']->returnPanel();
             $out .= '</div>';
         }
+
         return $out;
     }
 
-    public function setDefault($id)
+    /**
+     * @param string $id
+     * @return $this
+     */
+    public function setDefault(string $id)
     {
         $this->default = $id;
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPanelClass()
     {
         return 'WIDE_PANEL_CLASS_'.$this->id;
+    }
+
+    /**
+     * @param string $html
+     */
+    public function setOverrideHtml(string $html)
+    {
+        $this->html = $html;
     }
 }
