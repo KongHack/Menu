@@ -104,13 +104,15 @@ class DropDownNotices
      */
     public function render()
     {
-        $html = '<ul class="dropdown-menu">';
+        $html = '<ul class="dropdown-menu notification-dropdown-menu">';
         if(!empty($this->items)) {
             foreach($this->items as $item) {
+                $html .= '<li class="notification-li">';
                 $html .= '<a class="notification-entry '.$item['class'].'" href="'.$item['url'].'">';
                 $html .= '<span class="notification-icon">'.$item['icon'].'</span>';
                 $html .= '<span class="notification-icon">'.$item['message'].'</span>';
                 $html .= '</a>';
+                $html .= '</li>';
             }
         } else {
             $html .= '<li><div class="notification-menu-empty">'.$this->empty.'</div></li>';
