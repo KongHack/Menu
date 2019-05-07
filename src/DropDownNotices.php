@@ -8,8 +8,6 @@ class DropDownNotices
 {
     protected $items  = [];
     protected $id     = null;
-    protected $width  = 430;
-    protected $height = 600;
     protected $empty  = 'N/A';
 
     /**
@@ -42,44 +40,6 @@ class DropDownNotices
     }
 
     /**
-     * @param int $height
-     * @return $this
-     */
-    public function setHeight(int $height)
-    {
-        $this->height = $height;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHeight()
-    {
-        return $this->height;
-    }
-
-    /**
-     * @param int $width
-     * @return $this
-     */
-    public function setWidth(int $width)
-    {
-        $this->width = $width;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getWidth()
-    {
-        return $this->width;
-    }
-
-    /**
      * @param string $icon
      * @param string $message
      * @param string $url
@@ -104,13 +64,14 @@ class DropDownNotices
      */
     public function render()
     {
-        $html = '<ul class="dropdown-menu notification-dropdown-menu">';
+        $html  = '<div class="dropdown-menu notification-dropdown-menu">';
+        $html .= '<ul class="notification-dropdown-menu-items">';
         if(!empty($this->items)) {
             foreach($this->items as $item) {
                 $html .= '<li class="notification-li">';
                 $html .= '<a class="notification-entry '.$item['class'].'" href="'.$item['url'].'">';
                 $html .= '<span class="notification-icon">'.$item['icon'].'</span>';
-                $html .= '<span class="notification-icon">'.$item['message'].'</span>';
+                $html .= '<span class="notification-message">'.$item['message'].'</span>';
                 $html .= '</a>';
                 $html .= '</li>';
             }
@@ -119,6 +80,7 @@ class DropDownNotices
         }
 
         $html .= '</ul>';
+        $html .= '</div>';
 
         return $html;
     }
