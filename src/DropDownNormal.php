@@ -1,11 +1,14 @@
 <?php
 namespace GCWorld\Menu;
 
+/**
+ * Class DropDownNormal
+ */
 class DropDownNormal
 {
-    private $panels     = array();
-    public $id         = null;
-    public $default    = null;
+    protected $panels = [];
+    public $id        = null;
+    public $default   = null;
 
     public function __construct($id)
     {

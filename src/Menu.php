@@ -68,7 +68,10 @@ class Menu
     }
 
     /**
-     * @return \GCWorld\Menu\DropDownNormal
+     * @param string $id
+     * @param string $title
+     * @param bool   $right
+     * @return DropDownNormal
      */
     public function addDropDown($id, $title, $right = false)
     {
@@ -82,9 +85,12 @@ class Menu
     }
 
     /**
-     * @return \GCWorld\Menu\DropDownWide
+     * @param string $id
+     * @param string $title
+     * @param bool   $right
+     * @return DropDownWide
      */
-    public function addDropDownWide($id, $title, $right = false)
+    public function addDropDownWide(string $id, string $title, bool $right = false)
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
             'type'  => 'W',
@@ -95,11 +101,33 @@ class Menu
         return $this->menu_elements[($right?'R':'L')][$id]['obj'];
     }
 
-    public function addHTML($id, $html, $right = false)
+    /**
+     * @param string $id
+     * @param string $title
+     * @param bool   $right
+     * @return DropDownNotices
+     */
+    public function addDropDownNotice(string $id, string $title, bool $right = false)
+    {
+        $this->menu_elements[($right?'R':'L')][$id] = array(
+            'type'  => 'N',
+            'title' => $title,
+            'right' => $right,
+            'obj'   => new DropDownNotices($id)
+        );
+        return $this->menu_elements[($right?'R':'L')][$id]['obj'];
+    }
+
+    /**
+     * @param string $id
+     * @param string $html
+     * @param bool   $right
+     */
+    public function addHTML(string $id, string $html, bool $right = false)
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
             'type'  => 'H',
-            'html' => $html,
+            'html'  => $html,
             'right' => $right
         );
     }
@@ -203,6 +231,16 @@ class Menu
                         </li>
 						';
                         break;
+
+                    case 'N':
+                        $out .= '
+                        <li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
+                            '.$element['obj']->render().'
+                        </li>
+						';
+                        break;
+
                     case 'H':
                         $out .= $element['html'];
                         break;

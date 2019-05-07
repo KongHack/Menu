@@ -3,14 +3,14 @@ namespace GCWorld\Menu\PanelElements;
 
 class Link
 {
-    private $url            = '#';
-    private $name           = '';
-    private $class          = 'primary';
-    private $click          = null;
-    private $new_win        = false;
-    private $ajaxy          = true;
-    private $panel_loader   = null;
-    private $parent         = null;
+    protected $url            = '#';
+    protected $name           = '';
+    protected $class          = 'primary';
+    protected $click          = null;
+    protected $new_win        = false;
+    protected $ajaxy          = true;
+    protected $panel_loader   = null;
+    protected $parent         = null;
 
     public function __construct($parent)
     {
@@ -28,6 +28,14 @@ class Link
     }
 
     /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
      * @param $name
      * @return $this
      */
@@ -35,6 +43,14 @@ class Link
     {
         $this->name = $name;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -48,6 +64,14 @@ class Link
     }
 
     /**
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
      * @param $click
      * @return $this
      */
@@ -55,6 +79,14 @@ class Link
     {
         $this->click = $click;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClick()
+    {
+        return $this->click;
     }
 
     /**
@@ -68,6 +100,14 @@ class Link
     }
 
     /**
+     * @return mixed
+     */
+    public function getLoader()
+    {
+        return $this->panel_loader;
+    }
+
+    /**
      * @return $this
      */
     public function setNewWindow()
@@ -75,6 +115,14 @@ class Link
         $this->new_win = true;
         $this->ajaxy = false;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getNewWindow()
+    {
+        return $this->new_win;
     }
 
     /**
