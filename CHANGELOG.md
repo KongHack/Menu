@@ -8,6 +8,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [1.1.9](https://github.com/KongHack/Menu/releases/tag/1.1.9)
+ - @GameCharmer remove the div wrapper to fall back inline with boostrap 3
+
+
+
 ## [1.1.8](https://github.com/KongHack/Menu/releases/tag/1.1.8)
  - @GameCharmer cleanup for drop down notices, remove unused height/width
 
