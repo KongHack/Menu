@@ -10,18 +10,22 @@ class DropDownNormal
     public $id        = null;
     public $default   = null;
 
-    public function __construct($id)
+    /**
+     * DropDownNormal constructor.
+     *
+     * @param string $id
+     */
+    public function __construct(string $id)
     {
         $this->id = $id;
     }
 
-
     /**
-     * @param $id
-     * @param $name
-     * @return \GCWorld\Menu\MenuPanel
+     * @param string $id
+     * @param string $name
+     * @return MenuPanel
      */
-    public function addPanel($id, $name)
+    public function addPanel(string $id, string $name)
     {
         $this->panels[$id] = array(
             'id'    => $id,
@@ -40,6 +44,9 @@ class DropDownNormal
         return $this->panels[$id]['obj'];
     }
 
+    /**
+     * @return string
+     */
     public function returnPanels()
     {
         $out = '';
@@ -51,11 +58,17 @@ class DropDownNormal
         return $out;
     }
 
+    /**
+     * @param $id
+     */
     public function setDefault($id)
     {
         $this->default = $id;
     }
 
+    /**
+     * @return string
+     */
     public function getPanelClass()
     {
         return 'NORMAL_PANEL_CLASS_'.$this->id;
