@@ -8,6 +8,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [1.1.10](https://github.com/KongHack/Menu/releases/tag/1.1.10)
+ - @GameCharmer Add ID to Drop Down Notices UL
+
+
+
 ## [1.1.9](https://github.com/KongHack/Menu/releases/tag/1.1.9)
  - @GameCharmer remove the div wrapper to fall back inline with boostrap 3
 
