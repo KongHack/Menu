@@ -63,7 +63,12 @@ class Menu
      */
     public function addLink($id, $title, $url, $new_win = false, $right = false)
     {
-        $this->menu_elements[($right?'R':'L')][$id] = array('type'=>'L', 'title'=>$title, 'url'=>$url, 'new_win' => $new_win);
+        $this->menu_elements[($right?'R':'L')][$id] = [
+            'type'    =>'L',
+            'title'   =>$title,
+            'url'     =>$url,
+            'new_win' => $new_win
+        ];
         return $this;
     }
 
@@ -197,11 +202,11 @@ class Menu
                 switch($element['type'])
                 {
                     case 'L':
-                        $out .= '<li><a href="'.$element['url'].'" '.($element['new_win']?' class="no-ajaxy" target="_blank"':'').'>'.$element['title'].'</a></li>';
+                        $out .= '<li id="'.$element_id.'"><a href="'.$element['url'].'" '.($element['new_win']?' class="no-ajaxy" target="_blank"':'').'>'.$element['title'].'</a></li>';
                         break;
                     case 'D':
                         $out .= '
-                        <li class="dropdown">
+                        <li class="dropdown" id="'.$element_id.'">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -219,7 +224,7 @@ class Menu
                         break;
                     case 'W':
                         $out .= '
-                        <li class="dropdown yamm-fw">
+                        <li class="dropdown yamm-fw" id="'.$element_id.'">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -234,7 +239,7 @@ class Menu
 
                     case 'N':
                         $out .= '
-                        <li class="dropdown">
+                        <li class="dropdown" id="'.$element_id.'">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
                             '.$element['obj']->render().'
                         </li>
