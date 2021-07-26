@@ -8,6 +8,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [1.1.12](https://github.com/KongHack/Menu/releases/tag/1.1.12)
+ - @GameCharmer Adjust ID on `notification-dropdown-menu`
+
+
+
 ## [1.1.11](https://github.com/KongHack/Menu/releases/tag/1.1.11)
  - @GameCharmer Add Element IDs to menu elements
 
