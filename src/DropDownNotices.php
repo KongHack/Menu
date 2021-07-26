@@ -64,7 +64,7 @@ class DropDownNotices
      */
     public function render()
     {
-        $html = '<ul id="'.$this->id.'" class="dropdown-menu notification-dropdown-menu">';
+        $html = '<ul id="'.$this->id.'_list" class="dropdown-menu notification-dropdown-menu">';
         if(!empty($this->items)) {
             foreach($this->items as $item) {
                 $html .= '<li class="notification-li">';
