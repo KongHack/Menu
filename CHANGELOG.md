@@ -8,6 +8,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [1.2.0](https://github.com/KongHack/Menu/releases/tag/1.2.0)
+- @GameCharmer New Drop Down Notice Item object and hover text option
+- @GameCharmer increase minimum PHP version to 8.0
+
+
 ## [1.1.12](https://github.com/KongHack/Menu/releases/tag/1.1.12)
  - @GameCharmer Adjust ID on `notification-dropdown-menu`
 
