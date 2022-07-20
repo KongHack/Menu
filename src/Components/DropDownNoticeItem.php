@@ -112,16 +112,18 @@ class DropDownNoticeItem
      */
     public function getHtml()
     {
-        $hover = '';
+        $hover   = '';
+        $liClass = 'notification-li';
         if(!empty($this->hoverText)) {
             $hover = $this->hoverText;
             if(str_contains($hover,'"')) {
                 $hover = htmlentities($hover);
             }
-            $hover = ' class="tool_button" title="'.$hover.'"';
+            $hover    = ' class="" title="'.$hover.'"';
+            $liClass .= ' tool_button';
         }
 
-        $html = '<li class="notification-li"'.$hover.'>';
+        $html = '<li class="'.$liClass.'"'.$hover.'>';
         $html .= '<a class="notification-entry '.$this->getClass().'" href="'.$this->url.'">';
         $html .= '<span class="notification-icon">'.$this->icon.'</span>';
         $html .= '<span class="notification-message">'.$this->message.'</span>';
