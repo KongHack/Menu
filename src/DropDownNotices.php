@@ -1,14 +1,20 @@
 <?php
 namespace GCWorld\Menu;
 
+use GCWorld\Menu\Components\DropDownNoticeItem;
+
 /**
  * Class DropDownNotices
  */
 class DropDownNotices
 {
-    protected $items  = [];
-    protected $id     = null;
-    protected $empty  = 'N/A';
+    protected string $id;
+
+    /**
+     * @var DropDownNoticeItem[]
+     */
+    protected array $items  = [];
+    protected string $empty = 'N/A';
 
     /**
      * DropDownNotices constructor.
@@ -48,12 +54,24 @@ class DropDownNotices
      */
     public function addItem(string $icon, string $message, string $url, string $class = '')
     {
-        $this->items[] = [
-            'icon'    => $icon,
-            'message' => $message,
-            'url'     => $url,
-            'class'   => $class,
-        ];
+        $cObj = new DropDownNoticeItem();
+        $cObj->setIcon($icon);
+        $cObj->setMessage($message);
+        $cObj->setUrl($url);
+        $cObj->setClass($class);
+
+        $this->items[] = $cObj;
+
+        return $this;
+    }
+
+    /**
+     * @param DropDownNoticeItem $cItem
+     * @return $this
+     */
+    public function addItemObject(DropDownNoticeItem $cItem)
+    {
+        $this->items[] = $cItem;
 
         return $this;
     }
@@ -65,21 +83,15 @@ class DropDownNotices
     public function render()
     {
         $html = '<ul id="'.$this->id.'_list" class="dropdown-menu notification-dropdown-menu">';
-        if(!empty($this->items)) {
-            foreach($this->items as $item) {
-                $html .= '<li class="notification-li">';
-                $html .= '<a class="notification-entry '.$item['class'].'" href="'.$item['url'].'">';
-                $html .= '<span class="notification-icon">'.$item['icon'].'</span>';
-                $html .= '<span class="notification-message">'.$item['message'].'</span>';
-                $html .= '</a>';
-                $html .= '</li>';
-            }
-        } else {
-            $html .= '<li><div class="notification-menu-empty">'.$this->empty.'</div></li>';
+        if(empty($this->items)) {
+            $html .= '<li><div class="notification-menu-empty">' . $this->empty . '</div></li>';
+            return $html.'</ul>';
+        }
+        foreach($this->items as $item) {
+            $html .= $item->getHtml();
         }
 
         $html .= '</ul>';
-
         return $html;
     }
 }
