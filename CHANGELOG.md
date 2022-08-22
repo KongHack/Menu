@@ -8,6 +8,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [1.2.2](https://github.com/KongHack/Menu/releases/tag/1.2.2)
+- @GameCharmer New addHTML and getHTML methods for Menu Block
+
+
+
 ## [1.2.1](https://github.com/KongHack/Menu/releases/tag/1.2.1)
 - @GameCharmer Patch LI Class
 
