@@ -1,13 +1,20 @@
 <?php
 namespace GCWorld\Menu;
 
+/**
+ * MenuBlock Class.
+ */
 class MenuBlock
 {
-	public $wrap    = true;
-	private $parent = null;
-	private $html   = null;
-	private $links  = array();
+    private $parent = null;
 
+    public  bool    $wrap  = true;
+	private ?string $html  = null;
+	private array   $links = [];
+
+    /**
+     * @param $parent
+     */
 	public function __construct($parent)
     {
         $this->parent = $parent;
@@ -31,6 +38,32 @@ class MenuBlock
     public function setHTML($html)
     {
         $this->html = $html;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getHTML()
+    {
+        return $this->html;
+    }
+
+    /**
+     * @param string $html
+     * @return $this
+     */
+    public function addHTML(string $html)
+    {
+        if($this->html === null) {
+            $this->html = $html;
+
+            return $this;
+        }
+
+        $this->html .= $html;
+
         return $this;
     }
 
