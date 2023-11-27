@@ -4,4 +4,4 @@ Legacy thing that builds menus.  Desperately needs some TLC.
 
 ### Version
 
-1.2.2
+1.2.3

@@ -1,33 +1,43 @@
 <?php
 namespace GCWorld\Menu;
 
+/**
+ * Menu Class
+ */
 class Menu
 {
-    private $menu_elements  = array();
-    private $menu_title     = '';
-    private $menu_logo      = '';
-    private $menu_url       = '';
+    protected const ELEMENT_LINK        = 'L';
+    protected const ELEMENT_DROP_NORMAL = 'D';
+    protected const ELEMENT_DROP_WIDE   = 'W';
+    protected const ELEMENT_DROP_NOTICE = 'N';
+    protected const ELEMENT_DROP_HTML   = 'X';
+    protected const ELEMENT_HTML        = 'H';
 
-    public $legacySearch    = false;
 
-    public $googleSearchURL = null;
-    public $searchForm      = null;
+    protected array  $menu_elements = [];
+    protected string $menu_title    = '';
+    protected string $menu_logo     = '';
+    protected string $menu_url      = '';
+
+    public bool    $legacySearch    = false;
+    public ?string $googleSearchURL = null;
+    public ?string $searchForm      = null;
 
     /**
-     * @param $title
+     * @param string $title
      * @return $this
      */
-    public function setTitle($title)
+    public function setTitle(string $title): static
     {
         $this->menu_title = $title;
         return $this;
     }
 
     /**
-     * @param $logo
+     * @param string $logo
      * @return $this
      */
-    public function setLogo($logo)
+    public function setLogo(string $logo): static
     {
         $this->menu_logo = $logo;
         return $this;
@@ -35,10 +45,10 @@ class Menu
 
     /**
      * Sets the base url that the logo will act upon
-     * @param $url
+     * @param string $url
      * @return $this
      */
-    public function setURL($url)
+    public function setURL(string $url): static
     {
         $this->menu_url = $url;
         return $this;
@@ -47,24 +57,24 @@ class Menu
     /**
      * @return $this
      */
-    public function enableLegacySearch()
+    public function enableLegacySearch(): static
     {
         $this->legacySearch = true;
         return $this;
     }
 
     /**
-     * @param            $id
-     * @param            $title
-     * @param            $url
-     * @param bool|false $new_win
-     * @param bool|false $right
+     * @param string $id
+     * @param string $title
+     * @param string $url
+     * @param bool   $new_win
+     * @param bool   $right
      * @return $this
      */
-    public function addLink($id, $title, $url, $new_win = false, $right = false)
+    public function addLink(string $id, string $title, string $url, bool $new_win = false, bool $right = false): static
     {
         $this->menu_elements[($right?'R':'L')][$id] = [
-            'type'    =>'L',
+            'type'    => self::ELEMENT_LINK,
             'title'   =>$title,
             'url'     =>$url,
             'new_win' => $new_win
@@ -78,10 +88,10 @@ class Menu
      * @param bool   $right
      * @return DropDownNormal
      */
-    public function addDropDown($id, $title, $right = false)
+    public function addDropDown($id, $title, $right = false): DropDownNormal
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
-            'type'  => 'D',
+            'type'  => self::ELEMENT_DROP_NORMAL,
             'title' => $title,
             'right' => $right,
             'obj'   => new DropDownNormal($id)
@@ -98,7 +108,7 @@ class Menu
     public function addDropDownWide(string $id, string $title, bool $right = false)
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
-            'type'  => 'W',
+            'type'  => self::ELEMENT_DROP_WIDE,
             'title' => $title,
             'right' => $right,
             'obj'   => new DropDownWide($id)
@@ -115,11 +125,28 @@ class Menu
     public function addDropDownNotice(string $id, string $title, bool $right = false)
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
-            'type'  => 'N',
+            'type'  => self::ELEMENT_DROP_NOTICE,
             'title' => $title,
             'right' => $right,
             'obj'   => new DropDownNotices($id)
         );
+        return $this->menu_elements[($right?'R':'L')][$id]['obj'];
+    }
+    
+    /**
+     * @param string $id
+     * @param string $title
+     * @param bool   $right
+     * @return DropDownHTML
+     */
+    public function addDropDownHTML(string $id, string $title, bool $right = false)
+    {
+        $this->menu_elements[($right?'R':'L')][$id] = [
+            'type'  => self::ELEMENT_DROP_HTML,
+            'title' => $title,
+            'right' => $right,
+            'obj'   => new DropDownHTML($id)
+        ];
         return $this->menu_elements[($right?'R':'L')][$id]['obj'];
     }
 
@@ -131,7 +158,7 @@ class Menu
     public function addHTML(string $id, string $html, bool $right = false)
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
-            'type'  => 'H',
+            'type'  => self::ELEMENT_HTML,
             'html'  => $html,
             'right' => $right
         );
@@ -199,12 +226,11 @@ class Menu
             }
 
             foreach ($elements as $element_id => $element) {
-                switch($element['type'])
-                {
-                    case 'L':
+                switch($element['type']) {
+                    case self::ELEMENT_LINK:
                         $out .= '<li id="'.$element_id.'"><a href="'.$element['url'].'" '.($element['new_win']?' class="no-ajaxy" target="_blank"':'').'>'.$element['title'].'</a></li>';
                         break;
-                    case 'D':
+                    case self::ELEMENT_DROP_NORMAL:
                         $out .= '
                         <li class="dropdown" id="'.$element_id.'">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
@@ -222,7 +248,7 @@ class Menu
                         </li>
 						';
                         break;
-                    case 'W':
+                    case self::ELEMENT_DROP_WIDE:
                         $out .= '
                         <li class="dropdown yamm-fw" id="'.$element_id.'">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
@@ -236,8 +262,21 @@ class Menu
                         </li>
 						';
                         break;
-
-                    case 'N':
+                    case self::ELEMENT_DROP_HTML:
+                        $out .= '
+                        <li class="dropdown yamm-fw" id="'.$element_id.'">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="yamm-content">
+										'.$element['obj']->getHTML().'
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+						';
+                        break;
+                    case self::ELEMENT_DROP_NOTICE:
                         $out .= '
                         <li class="dropdown" id="'.$element_id.'">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
@@ -245,8 +284,7 @@ class Menu
                         </li>
 						';
                         break;
-
-                    case 'H':
+                    case self::ELEMENT_HTML:
                         $out .= $element['html'];
                         break;
                 }
