@@ -6,9 +6,9 @@ namespace GCWorld\Menu;
  */
 class DropDownNormal
 {
-    protected $panels = [];
-    public $id        = null;
-    public $default   = null;
+    public string $id;
+    public ?string $default = null;
+    protected array $panels = [];
 
     /**
      * DropDownNormal constructor.
@@ -25,21 +25,21 @@ class DropDownNormal
      * @param string $name
      * @return MenuPanel
      */
-    public function addPanel(string $id, string $name)
+    public function addPanel(string $id, string $name): MenuPanel
     {
-        $this->panels[$id] = array(
+        $this->panels[$id] = [
             'id'    => $id,
             'name'  => $name,
             'obj'   => new MenuPanel($this)
-        );
+        ];
         return $this->panels[$id]['obj'];
     }
 
     /**
-     * @param $id
-     * @return \GCWorld\Menu\MenuPanel
+     * @param string $id
+     * @return MenuPanel
      */
-    public function getPanel($id)
+    public function getPanel(string $id): MenuPanel
     {
         return $this->panels[$id]['obj'];
     }
@@ -47,7 +47,7 @@ class DropDownNormal
     /**
      * @return string
      */
-    public function returnPanels()
+    public function returnPanels(): string
     {
         $out = '';
         foreach ($this->panels as $panel) {
@@ -59,9 +59,10 @@ class DropDownNormal
     }
 
     /**
-     * @param $id
+     * @param string $id
+     * @return void
      */
-    public function setDefault($id)
+    public function setDefault(string $id): void
     {
         $this->default = $id;
     }
@@ -69,7 +70,7 @@ class DropDownNormal
     /**
      * @return string
      */
-    public function getPanelClass()
+    public function getPanelClass(): string
     {
         return 'NORMAL_PANEL_CLASS_'.$this->id;
     }

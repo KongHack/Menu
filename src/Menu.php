@@ -2,7 +2,7 @@
 namespace GCWorld\Menu;
 
 /**
- * Menu Class
+ * Class Menu
  */
 class Menu
 {
@@ -13,13 +13,11 @@ class Menu
     protected const ELEMENT_DROP_HTML   = 'X';
     protected const ELEMENT_HTML        = 'H';
 
-
     protected array  $menu_elements = [];
     protected string $menu_title    = '';
     protected string $menu_logo     = '';
     protected string $menu_url      = '';
 
-    public bool    $legacySearch    = false;
     public ?string $googleSearchURL = null;
     public ?string $searchForm      = null;
 
@@ -55,15 +53,6 @@ class Menu
     }
 
     /**
-     * @return $this
-     */
-    public function enableLegacySearch(): static
-    {
-        $this->legacySearch = true;
-        return $this;
-    }
-
-    /**
      * @param string $id
      * @param string $title
      * @param string $url
@@ -75,8 +64,8 @@ class Menu
     {
         $this->menu_elements[($right?'R':'L')][$id] = [
             'type'    => self::ELEMENT_LINK,
-            'title'   =>$title,
-            'url'     =>$url,
+            'title'   => $title,
+            'url'     => $url,
             'new_win' => $new_win
         ];
         return $this;
@@ -88,7 +77,7 @@ class Menu
      * @param bool   $right
      * @return DropDownNormal
      */
-    public function addDropDown($id, $title, $right = false): DropDownNormal
+    public function addDropDown(string $id, string $title, bool $right = false): DropDownNormal
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
             'type'  => self::ELEMENT_DROP_NORMAL,
@@ -105,7 +94,7 @@ class Menu
      * @param bool   $right
      * @return DropDownWide
      */
-    public function addDropDownWide(string $id, string $title, bool $right = false)
+    public function addDropDownWide(string $id, string $title, bool $right = false): DropDownWide
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
             'type'  => self::ELEMENT_DROP_WIDE,
@@ -122,7 +111,7 @@ class Menu
      * @param bool   $right
      * @return DropDownNotices
      */
-    public function addDropDownNotice(string $id, string $title, bool $right = false)
+    public function addDropDownNotice(string $id, string $title, bool $right = false): DropDownNotices
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
             'type'  => self::ELEMENT_DROP_NOTICE,
@@ -139,7 +128,7 @@ class Menu
      * @param bool   $right
      * @return DropDownHTML
      */
-    public function addDropDownHTML(string $id, string $title, bool $right = false)
+    public function addDropDownHTML(string $id, string $title, bool $right = false): DropDownHTML
     {
         $this->menu_elements[($right?'R':'L')][$id] = [
             'type'  => self::ELEMENT_DROP_HTML,
@@ -154,8 +143,9 @@ class Menu
      * @param string $id
      * @param string $html
      * @param bool   $right
+     * @return void
      */
-    public function addHTML(string $id, string $html, bool $right = false)
+    public function addHTML(string $id, string $html, bool $right = false): void
     {
         $this->menu_elements[($right?'R':'L')][$id] = array(
             'type'  => self::ELEMENT_HTML,
@@ -167,7 +157,7 @@ class Menu
     /**
      * @return string
      */
-    public function returnMenu()
+    public function returnMenu(): string
     {
         $out = '
         <nav class="navbar yamm navbar-default" role="navigation">
@@ -182,23 +172,7 @@ class Menu
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				';
-        if($this->legacySearch == true) {
-            $out .= '
-            <form class="navbar-form navbar-left" role="search" action="/search_results.php" id="cse-search-box">
-                <div class="form-group">
-                    <input type="hidden" name="cof" value="FORID:10">
-                    <input type="hidden" name="ie" value="UTF-8">
-                    <input type="hidden" name="sa" value="Search">
-                    <div class="input-group" style="width:150px;">
-                        <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="form-control ui-autocomplete-input" placeholder="Search" name="q" id="header_search" autocomplete="off">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            ';
-        } elseif($this->googleSearchURL != null) {
+        if($this->googleSearchURL != null) {
             $out .= '
             <form class="navbar-form navbar-left" role="search" action="'.$this->googleSearchURL.'" id="cse-search-box">
                 <div class="form-group">

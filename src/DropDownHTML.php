@@ -6,8 +6,8 @@ namespace GCWorld\Menu;
  */
 class DropDownHTML
 {
-    protected string $html;
     protected string $id;
+    protected string $html = '';
 
     /**
      * DropDownHTML constructor.
@@ -33,7 +33,7 @@ class DropDownHTML
      */
     public function getHTML(): string
     {
-        return $this->html ?? '';
+        return $this->html;
     }
 
     /**

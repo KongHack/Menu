@@ -30,7 +30,7 @@ class DropDownNotices
      *
      * @return $this
      */
-    public function setEmptyHtml(string $html)
+    public function setEmptyHtml(string $html): static
     {
         $this->empty = $html;
 
@@ -40,7 +40,7 @@ class DropDownNotices
     /**
      * @return string
      */
-    public function getEmptyHtml()
+    public function getEmptyHtml(): string
     {
         return $this->empty;
     }
@@ -52,7 +52,7 @@ class DropDownNotices
      * @param string $class
      * @return $this
      */
-    public function addItem(string $icon, string $message, string $url, string $class = '')
+    public function addItem(string $icon, string $message, string $url, string $class = ''): static
     {
         $cObj = new DropDownNoticeItem();
         $cObj->setIcon($icon);
@@ -69,18 +69,17 @@ class DropDownNotices
      * @param DropDownNoticeItem $cItem
      * @return $this
      */
-    public function addItemObject(DropDownNoticeItem $cItem)
+    public function addItemObject(DropDownNoticeItem $cItem): static
     {
         $this->items[] = $cItem;
 
         return $this;
     }
 
-
     /**
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $html = '<ul id="'.$this->id.'_list" class="dropdown-menu notification-dropdown-menu">';
         if(empty($this->items)) {

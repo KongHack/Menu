@@ -3,14 +3,13 @@ namespace GCWorld\Menu;
 
 /**
  * Class DropDownWide
- * @package GCWorld\Menu
  */
 class DropDownWide
 {
-    protected $panels     = [];
-    protected $html       = null;
-    public    $id         = null;
-    public    $default    = null;
+    protected array  $panels   = [];
+    protected ?string $html    = null;
+    public    ?string $default = null;
+    public    string  $id;
 
     /**
      * DropDownWide constructor.
@@ -22,11 +21,11 @@ class DropDownWide
     }
 
     /**
-     * @param $id
-     * @param $name
-     * @return \GCWorld\Menu\MenuPanel
+     * @param string $id
+     * @param string $name
+     * @return MenuPanel
      */
-    public function addPanel($id, $name)
+    public function addPanel(string $id, string $name): MenuPanel
     {
         $this->panels[$id] = [
             'id'    => $id,
@@ -36,12 +35,11 @@ class DropDownWide
         return $this->panels[$id]['obj'];
     }
 
-
     /**
-     * @param $id
-     * @return \GCWorld\Menu\MenuPanel
+     * @param string $id
+     * @return MenuPanel
      */
-    public function getPanel($id)
+    public function getPanel(string $id): MenuPanel
     {
         return $this->panels[$id]['obj'];
     }
@@ -49,7 +47,7 @@ class DropDownWide
     /**
      * @return string
      */
-    public function returnPanels()
+    public function returnPanels(): string
     {
         $out = '';
 
@@ -73,7 +71,7 @@ class DropDownWide
      * @param string $id
      * @return $this
      */
-    public function setDefault(string $id)
+    public function setDefault(string $id): static
     {
         $this->default = $id;
         return $this;
@@ -82,7 +80,7 @@ class DropDownWide
     /**
      * @return string
      */
-    public function getPanelClass()
+    public function getPanelClass(): string
     {
         return 'WIDE_PANEL_CLASS_'.$this->id;
     }
@@ -90,7 +88,7 @@ class DropDownWide
     /**
      * @param string $html
      */
-    public function setOverrideHtml(string $html)
+    public function setOverrideHtml(string $html): void
     {
         $this->html = $html;
     }

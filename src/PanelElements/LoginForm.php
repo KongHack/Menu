@@ -1,38 +1,41 @@
 <?php
 namespace GCWorld\Menu\PanelElements;
 
+use GCWorld\Menu\MenuBlock;
+
+/**
+ * LoginForm Class
+ */
 class LoginForm
 {
-    private $parent         = null;
+    protected MenuBlock $parent;
+
+    protected ?string $loginUrl     = null;
+    protected ?string $forgotUrl    = null;
 
     /**
-     * todo: set this to null.  currently set to facilitate legacy code.
-     * @var string
+     * @param MenuBlock $parent
      */
-    protected $loginUrl     = '/login_resp.php';
-    protected $forgotUrl    = '/lostpass.php';
-
-    /**
-     * @param $parent
-     */
-    public function __construct($parent)
+    public function __construct(MenuBlock $parent)
     {
         $this->parent = $parent;
     }
 
     /**
-     * @param $url
+     * @param string $url
+     * @return $this
      */
-    public function setLoginURL($url)
+    public function setLoginURL(string $url): static
     {
         $this->loginUrl = $url;
         return $this;
     }
 
     /**
-     * @param $url
+     * @param string $url
+     * @return $this
      */
-    public function setForgotURL($url)
+    public function setForgotURL(string $url): static
     {
         $this->forgotUrl = $url;
         return $this;
@@ -42,7 +45,7 @@ class LoginForm
     /**
      * @return string
      */
-    public function returnButton()
+    public function returnButton(): string
     {
         return '
 			<form class="form-horizontal" method="post" action="'.$this->loginUrl.'">
@@ -69,9 +72,9 @@ class LoginForm
     }
 
     /**
-     * @return \GCWorld\Menu\MenuBlock
+     * @return MenuBlock
      */
-    public function getParent()
+    public function getParent(): MenuBlock
     {
         return $this->parent;
     }

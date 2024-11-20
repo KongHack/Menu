@@ -110,7 +110,7 @@ class DropDownNoticeItem
     /**
      * @return string
      */
-    public function getHtml()
+    public function getHtml(): string
     {
         $hover   = '';
         $liClass = 'notification-li';

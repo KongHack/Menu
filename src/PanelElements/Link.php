@@ -1,27 +1,35 @@
 <?php
 namespace GCWorld\Menu\PanelElements;
 
+use GCWorld\Menu\MenuBlock;
+
+/**
+ * Class Link
+ */
 class Link
 {
-    protected $url            = '#';
-    protected $name           = '';
-    protected $class          = 'primary';
-    protected $click          = null;
-    protected $new_win        = false;
-    protected $ajaxy          = true;
-    protected $panel_loader   = null;
-    protected $parent         = null;
+    protected MenuBlock $parent;
+    protected string $url           = '#';
+    protected string $name          = '';
+    protected string $class         = 'primary';
+    protected ?string $click        = null;
+    protected bool $new_win         = false;
+    protected bool $ajaxy           = true;
+    protected ?string $panel_loader = null;
 
-    public function __construct($parent)
+    /**
+     * @param MenuBlock $parent
+     */
+    public function __construct(MenuBlock $parent)
     {
         $this->parent = $parent;
     }
 
     /**
-     * @param $url
+     * @param string $url
      * @return $this
      */
-    public function setUrl($url)
+    public function setUrl(string $url): static
     {
         $this->url = $url;
         return $this;
@@ -30,16 +38,16 @@ class Link
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return $this
      */
-    public function setName($name)
+    public function setName(string $name): static
     {
         $this->name = $name;
         return $this;
@@ -48,16 +56,16 @@ class Link
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param $class
+     * @param string $class
      * @return $this
      */
-    public function setClass($class)
+    public function setClass(string $class): static
     {
         $this->class = $class;
         return $this;
@@ -66,43 +74,43 @@ class Link
     /**
      * @return string
      */
-    public function getClass()
+    public function getClass(): string
     {
         return $this->class;
     }
 
     /**
-     * @param $click
+     * @param string $click
      * @return $this
      */
-    public function setClick($click)
+    public function setClick(string $click): static
     {
         $this->click = $click;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getClick()
+    public function getClick(): ?string
     {
         return $this->click;
     }
 
     /**
-     * @param $loader
+     * @param string $loader
      * @return $this
      */
-    public function setLoader($loader)
+    public function setLoader(string $loader): static
     {
         $this->panel_loader = $loader;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getLoader()
+    public function getLoader(): ?string
     {
         return $this->panel_loader;
     }
@@ -110,7 +118,7 @@ class Link
     /**
      * @return $this
      */
-    public function setNewWindow()
+    public function setNewWindow(): static
     {
         $this->new_win = true;
         $this->ajaxy = false;
@@ -120,7 +128,7 @@ class Link
     /**
      * @return bool
      */
-    public function getNewWindow()
+    public function getNewWindow(): bool
     {
         return $this->new_win;
     }
@@ -128,7 +136,7 @@ class Link
     /**
      * @return string
      */
-    public function returnButton()
+    public function returnButton(): string
     {
         $out = '<p>';
         if ($this->panel_loader == null) {
@@ -152,9 +160,9 @@ class Link
     }
 
     /**
-     * @return \GCWorld\Menu\MenuBlock
+     * @return MenuBlock
      */
-    public function getParent()
+    public function getParent(): MenuBlock
     {
         return $this->parent;
     }

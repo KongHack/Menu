@@ -1,22 +1,26 @@
 <?php
 namespace GCWorld\Menu;
 
+/**
+ * Class MenuPanel
+ */
 class MenuPanel
 {
-    private $blocks = array();
-    private $parent = null;
+    protected DropDownWide|DropDownNormal $parent;
 
-    public function __construct($parent)
+    protected array $blocks = [];
+
+    public function __construct(DropDownWide|DropDownNormal $parent)
     {
         $this->parent = $parent;
     }
 
     /**
-     * @param $id
-     * @param $name
-     * @return \GCWorld\Menu\MenuBlock
+     * @param string $id
+     * @param string $name
+     * @return MenuBlock
      */
-    public function addBlock($id, $name)
+    public function addBlock(string $id, string $name): MenuBlock
     {
         $this->blocks[$id] = array(
             'id'    => $id,
@@ -27,18 +31,19 @@ class MenuPanel
     }
 
     /**
-     * @param $id
-     * @return \GCWorld\Menu\MenuBlock
+     * @param string $id
+     * @return MenuBlock
      */
-    public function getBlock($id)
+    public function getBlock(string $id): MenuBlock
     {
         return $this->blocks[$id]['obj'];
     }
 
     /**
+     * @param bool $slim
      * @return string
      */
-    public function returnPanel($slim = false)
+    public function returnPanel(bool $slim = false): string
     {
         $out = '';
         foreach ($this->blocks as $block) {
@@ -62,9 +67,9 @@ class MenuPanel
     }
 
     /**
-     * @return \GCWorld\Menu\DropDownWide
+     * @return DropDownWide|DropDownNormal
      */
-    public function getParent()
+    public function getParent(): DropDownWide|DropDownNormal
     {
         return $this->parent;
     }

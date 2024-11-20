@@ -1,21 +1,24 @@
 <?php
 namespace GCWorld\Menu;
 
+use GCWorld\Menu\PanelElements\Link;
+use GCWorld\Menu\PanelElements\LoginForm;
+
 /**
- * MenuBlock Class.
+ * Class MenuBlock
  */
 class MenuBlock
 {
-    private $parent = null;
+    protected MenuPanel $parent;
 
-    public  bool    $wrap  = true;
-	private ?string $html  = null;
-	private array   $links = [];
+    public    bool    $wrap  = true;
+	protected ?string $html  = null;
+    protected array   $links = [];
 
     /**
-     * @param $parent
+     * @param MenuPanel $parent
      */
-	public function __construct($parent)
+	public function __construct(MenuPanel $parent)
     {
         $this->parent = $parent;
     }
@@ -24,7 +27,7 @@ class MenuBlock
      * @param bool $bool
      * @return $this
      */
-    public function setWrap($bool)
+    public function setWrap(bool $bool): static
     {
         $this->wrap = $bool;
         return $this;
@@ -32,10 +35,10 @@ class MenuBlock
 
     /**
      * Note: Disables the links array
-     * @param $html
+     * @param string $html
      * @return $this
      */
-    public function setHTML($html)
+    public function setHTML(string $html): static
     {
         $this->html = $html;
 
@@ -45,7 +48,7 @@ class MenuBlock
     /**
      * @return null|string
      */
-    public function getHTML()
+    public function getHTML(): ?string
     {
         return $this->html;
     }
@@ -54,7 +57,7 @@ class MenuBlock
      * @param string $html
      * @return $this
      */
-    public function addHTML(string $html)
+    public function addHTML(string $html): static
     {
         if($this->html === null) {
             $this->html = $html;
@@ -68,29 +71,31 @@ class MenuBlock
     }
 
     /**
-     * @param $id
-     * @return \GCWorld\Menu\PanelElements\Link
+     * @param string $id
+     * @return Link
      */
-    public function addLink($id)
+    public function addLink(string $id): Link
     {
-        $this->links[$id] = new PanelElements\Link($this);
+        $this->links[$id] = new Link($this);
+
         return $this->links[$id];
     }
 
     /**
-     * @param $id
-     * @return \GCWorld\Menu\PanelElements\LoginForm
+     * @param string $id
+     * @return LoginForm
      */
-    public function addLoginForm($id)
+    public function addLoginForm(string $id): LoginForm
     {
-        $this->links[$id] = new PanelElements\LoginForm($this);
+        $this->links[$id] = new LoginForm($this);
+
         return $this->links[$id];
     }
 
     /**
      * @return string
      */
-    public function returnBlock()
+    public function returnBlock(): string
     {
         if ($this->html != null) {
             return $this->html;
@@ -104,9 +109,9 @@ class MenuBlock
     }
 
     /**
-     * @return \GCWorld\Menu\MenuPanel
+     * @return MenuPanel
      */
-    public function getParent()
+    public function getParent(): MenuPanel
     {
         return $this->parent;
     }
