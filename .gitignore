@@ -1,4 +1,5 @@
 .idea/*
-vendor/*
-stantmp/*
 phpstan.neon.dist
+stantmp/*
+twig/cache/*
+vendor/*

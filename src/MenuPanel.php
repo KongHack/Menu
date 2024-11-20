@@ -47,7 +47,7 @@ class MenuPanel
     {
         $out = '';
         foreach ($this->blocks as $block) {
-        /** @var \GCWorld\Menu\MenuBlock $obj */
+            /** @var MenuBlock $obj */
             $obj = $block['obj'];
 
             $out .= '<div class="col-sm-'.floor(12/count($this->blocks)).'">';
