@@ -27,6 +27,7 @@ class MenuPanel
             'name'  => $name,
             'obj'   => new MenuBlock($this)
         );
+
         return $this->blocks[$id]['obj'];
     }
 

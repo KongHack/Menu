@@ -1,15 +1,9 @@
 parameters:
 	reportUnmatchedIgnoredErrors: false
 	tmpDir: stantmp
-	excludePaths:
-		- %rootDir%/../../../src/Generated/*
-		- %rootDir%/../../../src/Composer.php
 
 	parallel:
 		processTimeout: 3000.0
 		maximumNumberOfProcesses: 4
 
 	tipsOfTheDay: false
-
-	checkMissingIterableValueType: false
-	checkGenericClassInNonGenericObjectType: false
