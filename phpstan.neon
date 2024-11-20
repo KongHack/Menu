@@ -1,0 +1,17 @@
+includes:
+	- phpstan.neon.dist
+parameters:
+	reportUnmatchedIgnoredErrors: false
+	excludePaths:
+		- %rootDir%/../../../src/Generated/*
+		- %rootDir%/../../../src/Composer.php
+
+	parallel:
+		processTimeout: 3000.0
+		maximumNumberOfProcesses: 1
+
+	tipsOfTheDay: false
+
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
+	treatPhpDocTypesAsCertain: false
