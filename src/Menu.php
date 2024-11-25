@@ -113,12 +113,12 @@ class Menu
      */
     public function addDropDownNotice(string $id, string $title, bool $right = false): DropDownNotices
     {
-        $this->menu_elements[($right?'R':'L')][$id] = array(
+        $this->menu_elements[($right?'R':'L')][$id] = [
             'type'  => self::ELEMENT_DROP_NOTICE,
             'title' => $title,
             'right' => $right,
             'obj'   => new DropDownNotices($id)
-        );
+        ];
         return $this->menu_elements[($right?'R':'L')][$id]['obj'];
     }
     
@@ -147,11 +147,11 @@ class Menu
      */
     public function addHTML(string $id, string $html, bool $right = false): void
     {
-        $this->menu_elements[($right?'R':'L')][$id] = array(
+        $this->menu_elements[($right?'R':'L')][$id] = [
             'type'  => self::ELEMENT_HTML,
             'html'  => $html,
             'right' => $right
-        );
+        ];
     }
 
     /**

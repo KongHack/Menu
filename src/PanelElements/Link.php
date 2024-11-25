@@ -13,7 +13,7 @@ class Link
     protected string $name          = '';
     protected string $class         = 'primary';
     protected ?string $click        = null;
-    protected bool $new_win         = false;
+    protected bool $newWindow       = false;
     protected bool $ajaxy           = true;
     protected ?string $panel_loader = null;
 
@@ -120,7 +120,7 @@ class Link
      */
     public function setNewWindow(): static
     {
-        $this->new_win = true;
+        $this->newWindow = true;
         $this->ajaxy = false;
         return $this;
     }
@@ -130,7 +130,7 @@ class Link
      */
     public function getNewWindow(): bool
     {
-        return $this->new_win;
+        return $this->newWindow;
     }
 
     /**
@@ -144,7 +144,7 @@ class Link
             if ($this->click != '') {
                 $out .= ' onclick="'.addslashes($this->click).'"';
             }
-            if ($this->new_win) {
+            if ($this->newWindow) {
                 $out .= ' target="_blank"';
             }
         } else {

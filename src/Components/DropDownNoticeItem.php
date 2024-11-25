@@ -11,6 +11,7 @@ class DropDownNoticeItem
     protected string $message   = '';
     protected string $url       = '';
     protected string $hoverText = '';
+    protected array  $data      = [];
 
     /**
      * @return string
@@ -108,6 +109,31 @@ class DropDownNoticeItem
     }
 
     /**
+     * @param string $key
+     * @param string $value
+     * @return void
+     */
+    public function setData(string $key, string $value): void
+    {
+        $this->data[$key] = $value;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDataString(): string
+    {
+        if(empty($this->data)) {
+            return '';
+        }
+        $out = '';
+        foreach($this->data as $k => $v) {
+            $out .= ' data-'.$k.'="'.htmlentities($v).' ';
+        }
+        return $out;
+    }
+
+    /**
      * @return string
      */
     public function getHtml(): string
@@ -124,7 +150,7 @@ class DropDownNoticeItem
         }
 
         $html = '<li class="'.$liClass.'"'.$hover.'>';
-        $html .= '<a class="notification-entry '.$this->getClass().'" href="'.$this->url.'">';
+        $html .= '<a class="notification-entry '.$this->getClass().'" href="'.$this->url.'" '.$this->getDataString().'>';
         $html .= '<span class="notification-icon">'.$this->icon.'</span>';
         $html .= '<span class="notification-message">'.$this->message.'</span>';
         $html .= '</a>';
