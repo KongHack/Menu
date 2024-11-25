@@ -128,7 +128,7 @@ class DropDownNoticeItem
         }
         $out = '';
         foreach($this->data as $k => $v) {
-            $out .= ' data-'.$k.'="'.htmlentities($v).' ';
+            $out .= ' data-'.$k.'="'.htmlentities($v).'" ';
         }
         return $out;
     }
