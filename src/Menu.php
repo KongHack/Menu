@@ -192,6 +192,21 @@ class Menu
             $out .= $this->searchForm;
         }
 
+        $out .= $this->renderElements();
+
+        $out .= '
+            </div>
+		</nav>';
+
+        return $out;
+    }
+
+    /**
+     * @return string
+     */
+    public function renderElements(): string
+    {
+        $out = '';
         foreach ($this->menu_elements as $alignment => $elements) {
             if ($alignment == 'L') {
                 $out .= '<ul class="nav navbar-nav">';
@@ -265,10 +280,6 @@ class Menu
             }
             $out .= '</ul>';
         }
-
-        $out .= '
-            </div>
-		</nav>';
 
         return $out;
     }
