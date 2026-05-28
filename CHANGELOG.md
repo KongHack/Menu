@@ -8,6 +8,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## [1.2.7](https://github.com/KongHack/Menu/releases/tag/1.2.7)
+- @GameCharmer Update Composer Dependencies
+
+
+
 ## [1.2.6](https://github.com/KongHack/Menu/releases/tag/1.2.6)
 - @GameCharmer Add renderElements method to Menu
 
