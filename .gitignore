@@ -3,3 +3,4 @@ phpstan.neon.dist
 stantmp/*
 twig/cache/*
 vendor/*
+docker-compose-local.yml
