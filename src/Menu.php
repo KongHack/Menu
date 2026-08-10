@@ -13,10 +13,11 @@ class Menu
     protected const ELEMENT_DROP_HTML   = 'X';
     protected const ELEMENT_HTML        = 'H';
 
-    protected array  $menu_elements = [];
-    protected string $menu_title    = '';
-    protected string $menu_logo     = '';
-    protected string $menu_url      = '';
+    protected array   $menuElements = [];
+    protected string  $menuTitle    = '';
+    protected string  $menuLogo     = '';
+    protected string  $menuUrl      = '';
+    protected ?string $brandOverride = null;
 
     public ?string $googleSearchURL = null;
     public ?string $searchForm      = null;
@@ -27,7 +28,7 @@ class Menu
      */
     public function setTitle(string $title): static
     {
-        $this->menu_title = $title;
+        $this->menuTitle = $title;
         return $this;
     }
 
@@ -37,7 +38,7 @@ class Menu
      */
     public function setLogo(string $logo): static
     {
-        $this->menu_logo = $logo;
+        $this->menuLogo = $logo;
         return $this;
     }
 
@@ -48,7 +49,7 @@ class Menu
      */
     public function setURL(string $url): static
     {
-        $this->menu_url = $url;
+        $this->menuUrl = $url;
         return $this;
     }
 
@@ -62,7 +63,7 @@ class Menu
      */
     public function addLink(string $id, string $title, string $url, bool $new_win = false, bool $right = false): static
     {
-        $this->menu_elements[($right?'R':'L')][$id] = [
+        $this->menuElements[($right?'R':'L')][$id] = [
             'type'    => self::ELEMENT_LINK,
             'title'   => $title,
             'url'     => $url,
@@ -79,13 +80,13 @@ class Menu
      */
     public function addDropDown(string $id, string $title, bool $right = false): DropDownNormal
     {
-        $this->menu_elements[($right?'R':'L')][$id] = array(
+        $this->menuElements[($right?'R':'L')][$id] = array(
             'type'  => self::ELEMENT_DROP_NORMAL,
             'title' => $title,
             'right' => $right,
             'obj'   => new DropDownNormal($id)
         );
-        return $this->menu_elements[($right?'R':'L')][$id]['obj'];
+        return $this->menuElements[($right?'R':'L')][$id]['obj'];
     }
 
     /**
@@ -96,13 +97,13 @@ class Menu
      */
     public function addDropDownWide(string $id, string $title, bool $right = false): DropDownWide
     {
-        $this->menu_elements[($right?'R':'L')][$id] = array(
+        $this->menuElements[($right?'R':'L')][$id] = array(
             'type'  => self::ELEMENT_DROP_WIDE,
             'title' => $title,
             'right' => $right,
             'obj'   => new DropDownWide($id)
         );
-        return $this->menu_elements[($right?'R':'L')][$id]['obj'];
+        return $this->menuElements[($right?'R':'L')][$id]['obj'];
     }
 
     /**
@@ -113,13 +114,13 @@ class Menu
      */
     public function addDropDownNotice(string $id, string $title, bool $right = false): DropDownNotices
     {
-        $this->menu_elements[($right?'R':'L')][$id] = [
+        $this->menuElements[($right?'R':'L')][$id] = [
             'type'  => self::ELEMENT_DROP_NOTICE,
             'title' => $title,
             'right' => $right,
             'obj'   => new DropDownNotices($id)
         ];
-        return $this->menu_elements[($right?'R':'L')][$id]['obj'];
+        return $this->menuElements[($right?'R':'L')][$id]['obj'];
     }
     
     /**
@@ -130,13 +131,13 @@ class Menu
      */
     public function addDropDownHTML(string $id, string $title, bool $right = false): DropDownHTML
     {
-        $this->menu_elements[($right?'R':'L')][$id] = [
+        $this->menuElements[($right?'R':'L')][$id] = [
             'type'  => self::ELEMENT_DROP_HTML,
             'title' => $title,
             'right' => $right,
             'obj'   => new DropDownHTML($id)
         ];
-        return $this->menu_elements[($right?'R':'L')][$id]['obj'];
+        return $this->menuElements[($right?'R':'L')][$id]['obj'];
     }
 
     /**
@@ -147,7 +148,7 @@ class Menu
      */
     public function addHTML(string $id, string $html, bool $right = false): void
     {
-        $this->menu_elements[($right?'R':'L')][$id] = [
+        $this->menuElements[($right?'R':'L')][$id] = [
             'type'  => self::ELEMENT_HTML,
             'html'  => $html,
             'right' => $right
@@ -159,6 +160,8 @@ class Menu
      */
     public function returnMenu(): string
     {
+        $brand = $this->brandOverride ?? '<img src="'.$this->menuLogo.'" alt="'.$this->menuTitle.'">';
+
         $out = '
         <nav class="navbar yamm navbar-default" role="navigation">
             <div class="navbar-header">
@@ -168,7 +171,7 @@ class Menu
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-				<a class="navbar-brand" href="'.$this->menu_url.'"><img src="'.$this->menu_logo.'" alt="'.$this->menu_title.'"></a>
+				<a class="navbar-brand" href="'.$this->menuUrl.'">'.$brand.'</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				';
@@ -207,7 +210,7 @@ class Menu
     public function renderElements(): string
     {
         $out = '';
-        foreach ($this->menu_elements as $alignment => $elements) {
+        foreach ($this->menuElements as $alignment => $elements) {
             if ($alignment == 'L') {
                 $out .= '<ul class="nav navbar-nav">';
             } else {
