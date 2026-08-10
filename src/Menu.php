@@ -160,7 +160,9 @@ class Menu
      */
     public function returnMenu(): string
     {
-        $brand = $this->brandOverride ?? '<img src="'.$this->menuLogo.'" alt="'.$this->menuTitle.'">';
+        $brand = $this->brandOverride ?? ('<a class="navbar-brand" href="'.$this->menuUrl.'">
+            <img src="'.$this->menuLogo.'" alt="'.$this->menuTitle.'">'.
+        '</a>');
 
         $out = '
         <nav class="navbar yamm navbar-default" role="navigation">
@@ -171,7 +173,7 @@ class Menu
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-				<a class="navbar-brand" href="'.$this->menuUrl.'">'.$brand.'</a>
+				'.$brand.'
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				';
