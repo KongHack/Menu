@@ -13,7 +13,8 @@ class MenuBlock
 
     public    bool    $wrap  = true;
 	protected ?string $html  = null;
-    protected array   $links = [];
+    /** @var array<string,Link|LoginForm> */
+    protected array $links = [];
 
     /**
      * @param MenuPanel $parent

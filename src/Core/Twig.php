@@ -6,7 +6,6 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
-use Twig\Loader\LoaderInterface;
 
 /**
  * Class Twig
@@ -14,8 +13,8 @@ use Twig\Loader\LoaderInterface;
 class Twig
 {
     protected static string $twigNamespace       = 'GCMenu';
-    protected static ?Environment     $twig      = null;
-    protected static ?LoaderInterface $loader    = null;
+    protected static ?Environment      $twig      = null;
+    protected static ?FilesystemLoader $loader    = null;
     protected static ?string $FCVersion          = null;
 
     /**
@@ -91,7 +90,7 @@ class Twig
 
     /**
      * @param string     $name
-     * @param array|null $context
+     * @param array<string,mixed>|null $context
      *
      * @throws SyntaxError
      * @throws LoaderError
@@ -99,7 +98,7 @@ class Twig
      *
      * @return string
      */
-    public static function render(string $name, array $context = null): string
+    public static function render(string $name, ?array $context = null): string
     {
         try {
             if (null == $context) {

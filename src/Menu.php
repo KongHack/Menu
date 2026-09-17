@@ -13,6 +13,7 @@ class Menu
     protected const ELEMENT_DROP_HTML   = 'X';
     protected const ELEMENT_HTML        = 'H';
 
+    /** @var array<string,array<string,array<string,mixed>>> */
     protected array   $menuElements = [];
     protected string  $menuTitle    = '';
     protected string  $menuLogo     = '';

@@ -1,11 +1,8 @@
-includes:
-	- phpstan.neon.dist
 parameters:
+	level: 6
+	paths:
+		- src
+
 	reportUnmatchedIgnoredErrors: false
-
-	parallel:
-		processTimeout: 3000.0
-		maximumNumberOfProcesses: 1
-
 	tipsOfTheDay: false
 	treatPhpDocTypesAsCertain: false

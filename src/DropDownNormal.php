@@ -8,6 +8,7 @@ class DropDownNormal
 {
     public string $id;
     public ?string $default = null;
+    /** @var array<string,array{id:string,name:string,obj:MenuPanel}> */
     protected array $panels = [];
 
     /**

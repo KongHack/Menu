@@ -8,6 +8,7 @@ class MenuPanel
 {
     protected DropDownWide|DropDownNormal $parent;
 
+    /** @var array<string,array{id:string,name:string,obj:MenuBlock}> */
     protected array $blocks = [];
 
     public function __construct(DropDownWide|DropDownNormal $parent)

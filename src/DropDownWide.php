@@ -6,7 +6,8 @@ namespace GCWorld\Menu;
  */
 class DropDownWide
 {
-    protected array  $panels   = [];
+    /** @var array<string,array{id:string,name:string,obj:MenuPanel}> */
+    protected array $panels = [];
     protected ?string $html    = null;
     public    ?string $default = null;
     public    string  $id;

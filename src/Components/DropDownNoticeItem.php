@@ -11,7 +11,8 @@ class DropDownNoticeItem
     protected string $message   = '';
     protected string $url       = '';
     protected string $hoverText = '';
-    protected array  $data      = [];
+    /** @var array<string,string> */
+    protected array $data = [];
 
     /**
      * @return string
