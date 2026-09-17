@@ -12,10 +12,10 @@ use Twig\Loader\FilesystemLoader;
  */
 class Twig
 {
-    protected static string $twigNamespace       = 'GCMenu';
-    protected static ?Environment      $twig      = null;
-    protected static ?FilesystemLoader $loader    = null;
-    protected static ?string $FCVersion          = null;
+    public const TWIG_NAMESPACE = 'GCMenu';
+
+    protected static ?Environment $twig = null;
+    protected static ?FilesystemLoader $loader = null;
 
     /**
      * @param FilesystemLoader $filesystem
@@ -24,14 +24,7 @@ class Twig
      */
     public static function attachPath(FilesystemLoader $filesystem): void
     {
-        $dir = __DIR__.
-            DIRECTORY_SEPARATOR.'..'.
-            DIRECTORY_SEPARATOR.'..'.
-            DIRECTORY_SEPARATOR.'twig';
-        $dir = realpath($dir);
-        $dir = rtrim($dir,DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
-
-        $filesystem->addPath($dir, static::$twigNamespace);
+        $filesystem->addPath(self::getTwigDir(), self::TWIG_NAMESPACE);
     }
 
     /**
@@ -54,7 +47,6 @@ class Twig
         if (null == self::$twig) {
             $loader     = self::getLoader();
             $twig       = new Environment($loader, [
-                'cache'       => self::getTwigDir().DIRECTORY_SEPARATOR.'cache',
                 'auto_reload' => true,
             ]);
             self::mapAll($twig);
@@ -82,10 +74,13 @@ class Twig
      */
     protected static function getTwigDir(): string
     {
-        return __DIR__.
-            DIRECTORY_SEPARATOR.'..'.
-            DIRECTORY_SEPARATOR.'..'.
-            DIRECTORY_SEPARATOR.'twig';
+        $directory = dirname(__DIR__, 2).DIRECTORY_SEPARATOR.'twig';
+
+        if (!is_dir($directory)) {
+            throw new \RuntimeException('Menu Twig directory not found: '.$directory);
+        }
+
+        return $directory;
     }
 
     /**

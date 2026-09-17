@@ -1,7 +1,9 @@
 <?php
 namespace GCWorld\Menu\PanelElements;
 
+use GCWorld\Menu\DropDownWide;
 use GCWorld\Menu\MenuBlock;
+use LogicException;
 
 /**
  * Class Link
@@ -103,6 +105,10 @@ class Link
      */
     public function setLoader(string $loader): static
     {
+        if (!$this->parent->getParent()->getParent() instanceof DropDownWide) {
+            throw new LogicException('Panel loader links are only supported by wide dropdowns.');
+        }
+
         $this->panel_loader = $loader;
         return $this;
     }

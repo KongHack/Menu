@@ -1,9 +1,0 @@
-parameters:
-	reportUnmatchedIgnoredErrors: false
-	tmpDir: stantmp
-
-	parallel:
-		processTimeout: 3000.0
-		maximumNumberOfProcesses: 4
-
-	tipsOfTheDay: false

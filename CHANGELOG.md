@@ -5,6 +5,30 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/KongHack/Menu)
 
+### Changed
+
+- **Breaking:** Raised the minimum supported PHP version to 8.4.
+- **Breaking:** Removed the ineffective `DropDownNormal::setDefault()` method
+  and `default` property. Standard dropdown panels continue to render together;
+  panel switching is supported only by wide dropdowns.
+- Panel loader links now reject standard dropdowns instead of emitting
+  nonfunctional panel-switching JavaScript.
+- Reworked the Twig sidecar around the public `GCMenu` namespace and a tracked
+  package template directory.
+- Added GitHub quality/release automation, Dependabot configuration, Composer
+  quality scripts, and a PHPUnit regression suite.
+
+### Removed
+
+- **Breaking:** Removed the unused `LoginForm` element and
+  `MenuBlock::addLoginForm()`.
+- Removed the obsolete generated and local-only PHPStan configuration helpers.
+
+### Fixed
+
+- Removed the duplicate empty `class` attribute from notification items with
+  hover text.
+
 
 
 
@@ -95,5 +119,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.1.4](https://github.com/KongHack/Menu/releases/tag/1.1.4)
  - @GameCharmer everything pre-change log
-
-

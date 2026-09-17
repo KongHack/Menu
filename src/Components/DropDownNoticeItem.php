@@ -146,7 +146,7 @@ class DropDownNoticeItem
             if(str_contains($hover,'"')) {
                 $hover = htmlentities($hover);
             }
-            $hover    = ' class="" title="'.$hover.'"';
+            $hover    = ' title="'.$hover.'"';
             $liClass .= ' tool_button';
         }
 

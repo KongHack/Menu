@@ -17,15 +17,23 @@
             "GCWorld\\Menu\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "GCWorld\\Menu\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
-        "lint": "find src -name '*.php' -print0 | xargs -0 -n1 php -l",
+        "lint": "find src tests -name '*.php' -print0 | xargs -0 -n1 php -l",
         "phpstan": "phpstan analyse --no-progress --memory-limit=1G",
+        "test": "phpunit",
         "check": [
             "@lint",
-            "@phpstan"
+            "@phpstan",
+            "@test"
         ]
     },
     "require-dev": {
-        "phpstan/phpstan": "^2.0"
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^12.0"
     }
 }

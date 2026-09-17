@@ -1,4 +1,5 @@
 .idea/*
+.phpunit.cache/
 phpstan.neon.dist
 stantmp/*
 twig/cache/*

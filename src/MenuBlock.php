@@ -2,7 +2,6 @@
 namespace GCWorld\Menu;
 
 use GCWorld\Menu\PanelElements\Link;
-use GCWorld\Menu\PanelElements\LoginForm;
 
 /**
  * Class MenuBlock
@@ -13,7 +12,7 @@ class MenuBlock
 
     public    bool    $wrap  = true;
 	protected ?string $html  = null;
-    /** @var array<string,Link|LoginForm> */
+    /** @var array<string,Link> */
     protected array $links = [];
 
     /**
@@ -78,17 +77,6 @@ class MenuBlock
     public function addLink(string $id): Link
     {
         $this->links[$id] = new Link($this);
-
-        return $this->links[$id];
-    }
-
-    /**
-     * @param string $id
-     * @return LoginForm
-     */
-    public function addLoginForm(string $id): LoginForm
-    {
-        $this->links[$id] = new LoginForm($this);
 
         return $this->links[$id];
     }

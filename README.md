@@ -2,7 +2,7 @@
 
 GCWorld Menu is a PHP library for building Bootstrap 3 navigation bars. It
 supports left- and right-aligned links, standard and full-width dropdowns,
-notification menus, panel grids, login forms, and application-supplied HTML.
+notification menus, panel grids, and application-supplied HTML.
 
 The library returns HTML strings; it does not load frontend assets or manage
 routing, authorization, or request handling.
@@ -75,9 +75,10 @@ $panel->addBlock('session', 'Session')
 ```
 
 `addDropDownWide()` creates a full-width Yamm dropdown with the same
-panel/block structure. A wide dropdown can select its initially visible panel
-with `setDefault()`. Calling `Link::setLoader()` creates a jQuery-powered link
-that switches between panels in that same dropdown.
+panel/block structure. Its panels are hidden until one is selected with
+`setDefault()` or a loader link. Calling `Link::setLoader()` on a link inside a
+wide dropdown creates a jQuery-powered control that switches between panels in
+that dropdown. Loader links are not supported by standard dropdowns.
 
 Blocks also support `setHTML()` and `addHTML()`. Setting HTML replaces the
 block's link output.
@@ -116,6 +117,21 @@ $notifications->addItemObject($item);
 
 `setEmptyHtml()` controls the content shown when no items have been added.
 
+## Twig integration
+
+Applications that own a Twig environment can register Menu's template
+namespace through the sidecar mapper:
+
+```php
+use GCWorld\Menu\Core\Twig as MenuTwig;
+
+MenuTwig::mapAll($twigEnvironment);
+```
+
+This adds the package's `twig/` directory under the `@GCMenu` namespace. The
+namespace is the integration point for Menu templates as rendering is migrated
+from the legacy PHP string builders.
+
 ## Custom content and search
 
 Use `addDropDownHTML()` for an HTML-backed dropdown and `addHTML()` for a raw
@@ -147,8 +163,9 @@ Composer authentication can copy `docker-compose.override.yml.example` to the
 ignored `docker-compose.override.yml`; that override exposes credentials to
 container processes and should only be enabled when needed.
 
-The quality suite includes syntax checks and PHPStan level 6 analysis. Run
-either command independently with `composer lint` or `composer phpstan`.
+The quality suite includes syntax checks, PHPStan level 6 analysis, and PHPUnit.
+Run them independently with `composer lint`, `composer phpstan`, or
+`composer test`.
 
 ## Releases
 
