@@ -22,11 +22,43 @@ final class MenuTest extends TestCase
 
         self::assertStringContainsString('href="/home"', $html);
         self::assertStringContainsString('src="/logo.svg" alt="Example"', $html);
+        self::assertStringNotContainsString('gc-navbar-brand', $html);
         self::assertStringContainsString('<ul class="nav navbar-nav">', $html);
         self::assertStringContainsString('<li id="dashboard"><a href="/dashboard"', $html);
         self::assertStringContainsString('<ul class="nav navbar-nav navbar-right">', $html);
         self::assertStringContainsString(
             '<li id="help"><a href="/help" class="no-ajaxy" target="_blank">Help</a></li>',
+            $html,
+        );
+    }
+
+    public function testMenuRendersOptionalNavbarBrandOverlayAsRawMarkup(): void
+    {
+        $menu = (new Menu())
+            ->setTitle('Example')
+            ->setLogo('/logo.svg')
+            ->setNavbarBrandOverlay('<span class="environment">Test</span>');
+
+        $html = $menu->returnMenu();
+
+        self::assertStringContainsString('<span class="gc-navbar-brand">', $html);
+        self::assertStringContainsString(
+            '<span class="gc-navbar-brand-overlay"><span class="environment">Test</span></span>',
+            $html,
+        );
+    }
+
+    public function testBlankNavbarBrandOverlayPreservesOriginalBrandMarkup(): void
+    {
+        $menu = (new Menu())
+            ->setLogo('/logo.svg')
+            ->setNavbarBrandOverlay('');
+
+        $html = $menu->returnMenu();
+
+        self::assertStringNotContainsString('gc-navbar-brand', $html);
+        self::assertMatchesRegularExpression(
+            '/<a class="navbar-brand"[^>]*>\s*<img src="\/logo\.svg" alt="">\s*<\/a>/',
             $html,
         );
     }

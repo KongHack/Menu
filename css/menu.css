@@ -1,0 +1,16 @@
+.gc-navbar-brand {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.gc-navbar-brand > img {
+    display: block;
+}
+
+.gc-navbar-brand-overlay {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}

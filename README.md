@@ -7,8 +7,12 @@ notification menus, panel grids, and application-supplied HTML.
 The library returns HTML strings; it does not load frontend assets or manage
 routing, authorization, or request handling.
 
+Applications using a navbar brand overlay should also load `css/menu.css` for
+the shared overlay positioning. Visual styling remains the application's
+responsibility through the `.gc-navbar-brand-overlay` class.
+
 ### Version
-2.0.0
+2.0.1
 
 ## Requirements
 

@@ -10,7 +10,14 @@
             {{ brand_override|raw }}
         {% else %}
             <a class="navbar-brand" href="{{ menu_url|raw }}">
-                <img src="{{ menu_logo|raw }}" alt="{{ menu_title|raw }}">
+                {% if navbar_brand_overlay is not empty %}
+                    <span class="gc-navbar-brand">
+                        <img src="{{ menu_logo|raw }}" alt="{{ menu_title|raw }}">
+                        <span class="gc-navbar-brand-overlay">{{ navbar_brand_overlay|raw }}</span>
+                    </span>
+                {% else %}
+                    <img src="{{ menu_logo|raw }}" alt="{{ menu_title|raw }}">
+                {% endif %}
             </a>
         {% endif %}
     </div>

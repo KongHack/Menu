@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased](https://github.com/KongHack/Menu)
 
 
+## [2.0.1](https://github.com/KongHack/Menu/releases/tag/2.0.1)
+- New Navbar Brand Overlay feature
+
+
+
 ## [2.0.0](https://github.com/KongHack/Menu/releases/tag/2.0.0)
 
 ### Changed

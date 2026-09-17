@@ -16,11 +16,12 @@ class Menu
     protected const ELEMENT_HTML        = 'H';
 
     /** @var array<string,array<string,array<string,mixed>>> */
-    protected array   $menuElements = [];
-    protected string  $menuTitle    = '';
-    protected string  $menuLogo     = '';
-    protected string  $menuUrl      = '';
-    protected ?string $brandOverride = null;
+    protected array   $menuElements       = [];
+    protected string  $menuTitle          = '';
+    protected string  $menuLogo           = '';
+    protected string  $menuUrl            = '';
+    protected ?string $brandOverride      = null;
+    protected ?string $navbarBrandOverlay = null;
 
     public ?string $googleSearchURL = null;
     public ?string $searchForm      = null;
@@ -53,6 +54,16 @@ class Menu
     public function setURL(string $url): static
     {
         $this->menuUrl = $url;
+        return $this;
+    }
+
+    /**
+     * @param string|null $overlay
+     * @return $this
+     */
+    public function setNavbarBrandOverlay(?string $overlay): static
+    {
+        $this->navbarBrandOverlay = $overlay;
         return $this;
     }
 
@@ -164,13 +175,14 @@ class Menu
     public function returnMenu(): string
     {
         return Twig::render('@GCMenu/menu.twig', [
-            'menu_title'        => $this->menuTitle,
-            'menu_logo'         => $this->menuLogo,
-            'menu_url'          => $this->menuUrl,
-            'brand_override'    => $this->brandOverride,
-            'google_search_url' => $this->googleSearchURL,
-            'search_form'       => $this->searchForm,
-            'elements'          => $this->renderElements(),
+            'menu_title'           => $this->menuTitle,
+            'menu_logo'            => $this->menuLogo,
+            'menu_url'             => $this->menuUrl,
+            'brand_override'       => $this->brandOverride,
+            'navbar_brand_overlay' => $this->navbarBrandOverlay,
+            'google_search_url'    => $this->googleSearchURL,
+            'search_form'          => $this->searchForm,
+            'elements'             => $this->renderElements(),
         ]);
     }
 
