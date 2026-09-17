@@ -1,5 +1,12 @@
 # GCWorld Menu
 
+![Packagist](https://img.shields.io/packagist/dm/gcworld/menu.svg)
+![Packagist](https://img.shields.io/packagist/dt/gcworld/menu.svg)
+
+![Packagist PHP](https://img.shields.io/packagist/php-v/gcworld/menu.svg)
+![Packagist](https://img.shields.io/packagist/v/gcworld/menu.svg)
+![GitHub](https://img.shields.io/github/tag/konghack/menu.svg)
+
 GCWorld Menu is a PHP library for building Bootstrap 3 navigation bars. It
 supports left- and right-aligned links, standard and full-width dropdowns,
 notification menus, panel grids, and application-supplied HTML.
