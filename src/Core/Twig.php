@@ -48,6 +48,7 @@ class Twig
             $loader     = self::getLoader();
             $twig       = new Environment($loader, [
                 'auto_reload' => true,
+                'autoescape'  => false,
             ]);
             self::mapAll($twig);
             self::$twig = $twig;

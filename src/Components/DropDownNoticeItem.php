@@ -1,6 +1,8 @@
 <?php
 namespace GCWorld\Menu\Components;
 
+use GCWorld\Menu\Core\Twig;
+
 /**
  * Class DropDownNoticeItem
  */
@@ -122,41 +124,15 @@ class DropDownNoticeItem
     /**
      * @return string
      */
-    protected function getDataString(): string
-    {
-        if(empty($this->data)) {
-            return '';
-        }
-        $out = '';
-        foreach($this->data as $k => $v) {
-            $out .= ' data-'.$k.'="'.htmlentities($v).'" ';
-        }
-        return $out;
-    }
-
-    /**
-     * @return string
-     */
     public function getHtml(): string
     {
-        $hover   = '';
-        $liClass = 'notification-li';
-        if(!empty($this->hoverText)) {
-            $hover = $this->hoverText;
-            if(str_contains($hover,'"')) {
-                $hover = htmlentities($hover);
-            }
-            $hover    = ' title="'.$hover.'"';
-            $liClass .= ' tool_button';
-        }
-
-        $html = '<li class="'.$liClass.'"'.$hover.'>';
-        $html .= '<a class="notification-entry '.$this->getClass().'" href="'.$this->url.'" '.$this->getDataString().'>';
-        $html .= '<span class="notification-icon">'.$this->icon.'</span>';
-        $html .= '<span class="notification-message">'.$this->message.'</span>';
-        $html .= '</a>';
-        $html .= '</li>';
-
-        return $html;
+        return Twig::render('@GCMenu/components/drop_down_notice_item.twig', [
+            'icon'       => $this->icon,
+            'class'      => $this->class,
+            'message'    => $this->message,
+            'url'        => $this->url,
+            'hover_text' => $this->hoverText,
+            'data'       => $this->data,
+        ]);
     }
 }

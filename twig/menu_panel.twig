@@ -1,0 +1,14 @@
+{% for block in blocks %}
+    <div class="col-sm-{{ column_width }}">
+        {% if not slim and block.name != 'Spacer' and block.obj.wrap %}
+            <div class="panel panel-sitespecific">
+                <div class="panel-heading"><div class="panel-title">{{ block.name|raw }}</div></div>
+                <div class="panel-body">
+        {% endif %}
+        {{ block.obj.returnBlock()|raw }}
+        {% if not slim and block.name != 'Spacer' and block.obj.wrap %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}

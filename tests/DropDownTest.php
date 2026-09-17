@@ -43,7 +43,11 @@ final class DropDownTest extends TestCase
             $html,
         );
         self::assertStringContainsString(
-            'id="MENU_second" >',
+            'id="MENU_second">',
+            $html,
+        );
+        self::assertStringNotContainsString(
+            'id="MENU_second" style="display:none"',
             $html,
         );
     }

@@ -1,0 +1,1 @@
+<ul id="{{ id|raw }}_list" class="dropdown-menu notification-dropdown-menu">{% if items is empty %}<li><div class="notification-menu-empty">{{ empty|raw }}</div></li>{% else %}{% for item in items %}{{ item.html|raw }}{% endfor %}{% endif %}</ul>{%- set remove_trailing_newline = null -%}

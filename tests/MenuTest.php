@@ -26,7 +26,7 @@ final class MenuTest extends TestCase
         self::assertStringContainsString('<li id="dashboard"><a href="/dashboard"', $html);
         self::assertStringContainsString('<ul class="nav navbar-nav navbar-right">', $html);
         self::assertStringContainsString(
-            '<li id="help"><a href="/help"  class="no-ajaxy" target="_blank">Help</a></li>',
+            '<li id="help"><a href="/help" class="no-ajaxy" target="_blank">Help</a></li>',
             $html,
         );
     }
@@ -54,5 +54,32 @@ final class MenuTest extends TestCase
 
         self::assertStringContainsString('<li id="custom">Custom</li>', $html);
         self::assertStringContainsString('<strong>Tool content</strong>', $html);
+    }
+
+    public function testEveryDropdownTypeRendersThroughElementTemplate(): void
+    {
+        $menu = new Menu();
+        $menu->addDropDown('normal', 'Normal')
+            ->addPanel('normal-panel', 'Normal panel')
+            ->addBlock('normal-block', 'Normal block')
+            ->setHTML('Normal content');
+
+        $wide = $menu->addDropDownWide('wide', 'Wide');
+        $wide->setDefault('wide-panel');
+        $wide->addPanel('wide-panel', 'Wide panel')
+            ->addBlock('wide-block', 'Wide block')
+            ->setHTML('Wide content');
+
+        $menu->addDropDownNotice('notices', 'Notices')
+            ->addItem('!', 'Notice content', '/notice');
+
+        $html = $menu->renderElements();
+
+        self::assertStringContainsString('<li class="dropdown" id="normal">', $html);
+        self::assertStringContainsString('Normal content', $html);
+        self::assertStringContainsString('<li class="dropdown yamm-fw" id="wide">', $html);
+        self::assertStringContainsString('Wide content', $html);
+        self::assertStringContainsString('<li class="dropdown" id="notices">', $html);
+        self::assertStringContainsString('Notice content', $html);
     }
 }

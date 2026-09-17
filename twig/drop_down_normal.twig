@@ -1,0 +1,5 @@
+{% for panel in panels %}
+    <div class="row {{ class|raw }}">
+        {{ panel.obj.returnPanel(true)|raw }}
+    </div>
+{% endfor %}

@@ -8,7 +8,7 @@ The library returns HTML strings; it does not load frontend assets or manage
 routing, authorization, or request handling.
 
 ### Version
-1.2.8
+2.0.0
 
 ## Requirements
 
@@ -128,9 +128,9 @@ use GCWorld\Menu\Core\Twig as MenuTwig;
 MenuTwig::mapAll($twigEnvironment);
 ```
 
-This adds the package's `twig/` directory under the `@GCMenu` namespace. The
-namespace is the integration point for Menu templates as rendering is migrated
-from the legacy PHP string builders.
+This adds the package's `twig/` directory under the `@GCMenu` namespace. Menu's
+public rendering methods use those templates internally; PHP classes prepare
+the render context and retain the existing object-building API.
 
 ## Custom content and search
 

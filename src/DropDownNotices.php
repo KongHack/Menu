@@ -2,6 +2,7 @@
 namespace GCWorld\Menu;
 
 use GCWorld\Menu\Components\DropDownNoticeItem;
+use GCWorld\Menu\Core\Twig;
 
 /**
  * Class DropDownNotices
@@ -81,16 +82,10 @@ class DropDownNotices
      */
     public function render(): string
     {
-        $html = '<ul id="'.$this->id.'_list" class="dropdown-menu notification-dropdown-menu">';
-        if(empty($this->items)) {
-            $html .= '<li><div class="notification-menu-empty">' . $this->empty . '</div></li>';
-            return $html.'</ul>';
-        }
-        foreach($this->items as $item) {
-            $html .= $item->getHtml();
-        }
-
-        $html .= '</ul>';
-        return $html;
+        return Twig::render('@GCMenu/drop_down_notices.twig', [
+            'id'    => $this->id,
+            'items' => $this->items,
+            'empty' => $this->empty,
+        ]);
     }
 }

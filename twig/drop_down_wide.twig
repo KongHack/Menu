@@ -1,0 +1,11 @@
+{% if html is not null %}
+    <div class="row {{ class|raw }}" id="MENU_{{ id|raw }}">
+        {{ html|raw }}
+    </div>
+{% else %}
+    {% for panel in panels %}
+        <div class="row {{ class|raw }}" id="MENU_{{ panel.id|raw }}"{% if panel.id != default %} style="display:none"{% endif %}>
+            {{ panel.obj.returnPanel()|raw }}
+        </div>
+    {% endfor %}
+{% endif %}

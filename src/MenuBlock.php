@@ -1,6 +1,7 @@
 <?php
 namespace GCWorld\Menu;
 
+use GCWorld\Menu\Core\Twig;
 use GCWorld\Menu\PanelElements\Link;
 
 /**
@@ -86,15 +87,10 @@ class MenuBlock
      */
     public function returnBlock(): string
     {
-        if ($this->html != null) {
-            return $this->html;
-        }
-
-        $out = '';
-        foreach ($this->links as $link) {
-            $out .= $link->returnButton();
-        }
-        return $out;
+        return Twig::render('@GCMenu/menu_block.twig', [
+            'html'  => $this->html,
+            'links' => $this->links,
+        ]);
     }
 
     /**

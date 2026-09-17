@@ -1,6 +1,8 @@
 <?php
 namespace GCWorld\Menu;
 
+use GCWorld\Menu\Core\Twig;
+
 /**
  * Class Menu
  */
@@ -161,50 +163,15 @@ class Menu
      */
     public function returnMenu(): string
     {
-        $brand = $this->brandOverride ?? ('<a class="navbar-brand" href="'.$this->menuUrl.'">
-            <img src="'.$this->menuLogo.'" alt="'.$this->menuTitle.'">'.
-        '</a>');
-
-        $out = '
-        <nav class="navbar yamm navbar-default" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-				'.$brand.'
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				';
-        if($this->googleSearchURL != null) {
-            $out .= '
-            <form class="navbar-form navbar-left" role="search" action="'.$this->googleSearchURL.'" id="cse-search-box">
-                <div class="form-group">
-                    <input type="hidden" name="cof" value="FORID:10">
-                    <input type="hidden" name="ie" value="UTF-8">
-                    <input type="hidden" name="sa" value="Search">
-                    <div class="input-group" style="width:150px;">
-                        <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="form-control ui-autocomplete-input" placeholder="Search" name="q" id="header_search" autocomplete="off">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            ';
-        } elseif ($this->searchForm != null) {
-            $out .= $this->searchForm;
-        }
-
-        $out .= $this->renderElements();
-
-        $out .= '
-            </div>
-		</nav>';
-
-        return $out;
+        return Twig::render('@GCMenu/menu.twig', [
+            'menu_title'        => $this->menuTitle,
+            'menu_logo'         => $this->menuLogo,
+            'menu_url'          => $this->menuUrl,
+            'brand_override'    => $this->brandOverride,
+            'google_search_url' => $this->googleSearchURL,
+            'search_form'       => $this->searchForm,
+            'elements'          => $this->renderElements(),
+        ]);
     }
 
     /**
@@ -212,81 +179,16 @@ class Menu
      */
     public function renderElements(): string
     {
-        $out = '';
-        foreach ($this->menuElements as $alignment => $elements) {
-            if ($alignment == 'L') {
-                $out .= '<ul class="nav navbar-nav">';
-            } else {
-                $out .= '<ul class="nav navbar-nav navbar-right">';
-            }
-
-            foreach ($elements as $element_id => $element) {
-                switch($element['type']) {
-                    case self::ELEMENT_LINK:
-                        $out .= '<li id="'.$element_id.'"><a href="'.$element['url'].'" '.($element['new_win']?' class="no-ajaxy" target="_blank"':'').'>'.$element['title'].'</a></li>';
-                        break;
-                    case self::ELEMENT_DROP_NORMAL:
-                        $out .= '
-                        <li class="dropdown" id="'.$element_id.'">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="yamm-content">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-												'.$element['obj']->returnPanels().'
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-						';
-                        break;
-                    case self::ELEMENT_DROP_WIDE:
-                        $out .= '
-                        <li class="dropdown yamm-fw" id="'.$element_id.'">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="yamm-content">
-										'.$element['obj']->returnPanels().'
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-						';
-                        break;
-                    case self::ELEMENT_DROP_HTML:
-                        $out .= '
-                        <li class="dropdown yamm-fw" id="'.$element_id.'">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="yamm-content">
-										'.$element['obj']->getHTML().'
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-						';
-                        break;
-                    case self::ELEMENT_DROP_NOTICE:
-                        $out .= '
-                        <li class="dropdown" id="'.$element_id.'">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$element['title'].' <b class="caret"></b></a>
-                            '.$element['obj']->render().'
-                        </li>
-						';
-                        break;
-                    case self::ELEMENT_HTML:
-                        $out .= $element['html'];
-                        break;
-                }
-            }
-            $out .= '</ul>';
-        }
-
-        return $out;
+        return Twig::render('@GCMenu/menu_elements.twig', [
+            'menu_elements' => $this->menuElements,
+            'types'         => [
+                'link'        => self::ELEMENT_LINK,
+                'drop_normal' => self::ELEMENT_DROP_NORMAL,
+                'drop_wide'   => self::ELEMENT_DROP_WIDE,
+                'drop_notice' => self::ELEMENT_DROP_NOTICE,
+                'drop_html'   => self::ELEMENT_DROP_HTML,
+                'html'        => self::ELEMENT_HTML,
+            ],
+        ]);
     }
 }

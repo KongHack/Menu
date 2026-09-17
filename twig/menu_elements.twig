@@ -1,0 +1,53 @@
+{% for alignment, elements in menu_elements %}
+    <ul class="nav navbar-nav{% if alignment != 'L' %} navbar-right{% endif %}">
+        {% for element_id, element in elements %}
+            {% if element.type == types.link %}
+                <li id="{{ element_id|raw }}"><a href="{{ element.url|raw }}"{% if element.new_win %} class="no-ajaxy" target="_blank"{% endif %}>{{ element.title|raw }}</a></li>
+            {% elseif element.type == types.drop_normal %}
+                <li class="dropdown" id="{{ element_id|raw }}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ element.title|raw }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="yamm-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {{ element.obj.returnPanels()|raw }}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            {% elseif element.type == types.drop_wide %}
+                <li class="dropdown yamm-fw" id="{{ element_id|raw }}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ element.title|raw }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="yamm-content">
+                                {{ element.obj.returnPanels()|raw }}
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            {% elseif element.type == types.drop_html %}
+                <li class="dropdown yamm-fw" id="{{ element_id|raw }}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ element.title|raw }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="yamm-content">
+                                {{ element.obj.HTML|raw }}
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            {% elseif element.type == types.drop_notice %}
+                <li class="dropdown" id="{{ element_id|raw }}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ element.title|raw }} <b class="caret"></b></a>
+                    {{ element.obj.render()|raw }}
+                </li>
+            {% elseif element.type == types.html %}
+                {{ element.html|raw }}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endfor %}

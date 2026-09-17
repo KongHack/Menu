@@ -1,6 +1,8 @@
 <?php
 namespace GCWorld\Menu;
 
+use GCWorld\Menu\Core\Twig;
+
 /**
  * Class DropDownNormal
  */
@@ -49,13 +51,10 @@ class DropDownNormal
      */
     public function returnPanels(): string
     {
-        $out = '';
-        foreach ($this->panels as $panel) {
-            $out .= '<div class="row '.$this->getPanelClass().'">';
-            $out .= $panel['obj']->returnPanel(true);
-            $out .= '</div>';
-        }
-        return $out;
+        return Twig::render('@GCMenu/drop_down_normal.twig', [
+            'panels' => $this->panels,
+            'class'  => $this->getPanelClass(),
+        ]);
     }
 
     /**

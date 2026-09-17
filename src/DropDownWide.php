@@ -1,6 +1,8 @@
 <?php
 namespace GCWorld\Menu;
 
+use GCWorld\Menu\Core\Twig;
+
 /**
  * Class DropDownWide
  */
@@ -50,22 +52,13 @@ class DropDownWide
      */
     public function returnPanels(): string
     {
-        $out = '';
-
-        if($this->html !== null) {
-            $out .= '<div class="row '.$this->getPanelClass().'" id="MENU_'.$this->id.'">';
-            $out .= $this->html;
-            $out .= '</div>';
-            return $out;
-        }
-
-        foreach ($this->panels as $panel) {
-            $out .= '<div class="row '.$this->getPanelClass().'" id="MENU_'.$panel['id'].'" '.($panel['id']==$this->default?'':'style="display:none"').'>';
-            $out .= $panel['obj']->returnPanel();
-            $out .= '</div>';
-        }
-
-        return $out;
+        return Twig::render('@GCMenu/drop_down_wide.twig', [
+            'id'      => $this->id,
+            'html'    => $this->html,
+            'panels'  => $this->panels,
+            'default' => $this->default,
+            'class'   => $this->getPanelClass(),
+        ]);
     }
 
     /**

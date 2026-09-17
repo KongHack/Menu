@@ -1,6 +1,7 @@
 <?php
 namespace GCWorld\Menu\PanelElements;
 
+use GCWorld\Menu\Core\Twig;
 use GCWorld\Menu\DropDownWide;
 use GCWorld\Menu\MenuBlock;
 use LogicException;
@@ -144,25 +145,21 @@ class Link
      */
     public function returnButton(): string
     {
-        $out = '<p>';
-        if ($this->panel_loader == null) {
-            $out .= '<a href="'.$this->url.'" class="btn btn-'.$this->class.' btn-block '.($this->ajaxy ? '' : 'no-ajaxy').'"';
-            if ($this->click != '') {
-                $out .= ' onclick="'.addslashes($this->click).'"';
-            }
-            if ($this->newWindow) {
-                $out .= ' target="_blank"';
-            }
-        } else {
+        $panelClass = null;
+        if ($this->panel_loader !== null) {
             $panelClass = $this->getParent()->getParent()->getParent()->getPanelClass();
-
-            $out .= '<a class="btn btn-'.$this->class.' btn-block no-ajaxy" onclick="';
-            $out .= '$(\'.'.$panelClass.':not(#MENU_'.$this->panel_loader.')\').fadeOut(\'fast\', function(){$(\'#MENU_'.$this->panel_loader.'\').fadeIn(\'fast\');}); return false;';
-            $out .= '"';
         }
-        $out .= '>'.$this->name.'</a></p>';
 
-        return $out;
+        return Twig::render('@GCMenu/panel_elements/link.twig', [
+            'url'          => $this->url,
+            'name'         => $this->name,
+            'class'        => $this->class,
+            'click'        => $this->click === null ? null : addslashes($this->click),
+            'new_window'   => $this->newWindow,
+            'ajaxy'        => $this->ajaxy,
+            'panel_loader' => $this->panel_loader,
+            'panel_class'  => $panelClass,
+        ]);
     }
 
     /**

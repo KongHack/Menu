@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/KongHack/Menu)
 
+
+## [2.0.0](https://github.com/KongHack/Menu/releases/tag/2.0.0)
+
 ### Changed
 
 - **Breaking:** Raised the minimum supported PHP version to 8.4.
@@ -15,6 +18,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   nonfunctional panel-switching JavaScript.
 - Reworked the Twig sidecar around the public `GCMenu` namespace and a tracked
   package template directory.
+- Moved menu, dropdown, panel, notification, and link markup out of PHP string
+  builders and into namespaced Twig templates.
 - Added GitHub quality/release automation, Dependabot configuration, Composer
   quality scripts, and a PHPUnit regression suite.
 
@@ -28,8 +33,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Removed the duplicate empty `class` attribute from notification items with
   hover text.
-
-
 
 
 ## [1.2.8](https://github.com/KongHack/Menu/releases/tag/1.2.8)
