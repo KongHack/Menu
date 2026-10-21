@@ -159,7 +159,7 @@ values before passing them to the library.
 
 ## Local development
 
-The supported development environment uses the public KongHack PHP 8.4 image:
+The supported development environment uses the public KongHack PHP 8.5 image:
 
 ```console
 ./dc up -d
